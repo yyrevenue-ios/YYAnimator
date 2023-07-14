@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044393DF2A5F9D0200E9EEF4 /* YYEntranceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044393DE2A5F9D0200E9EEF4 /* YYEntranceListController.m */; };
+		04439F8D2A60ED8800E9EEF4 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 04439F8C2A60ED8800E9EEF4 /* config.json */; };
+		04439F902A61272F00E9EEF4 /* YYAnimDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F8F2A61272F00E9EEF4 /* YYAnimDemoController.m */; };
+		04439F932A61276200E9EEF4 /* YYDemoConfigData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F922A61276200E9EEF4 /* YYDemoConfigData.m */; };
+		04439F992A61495500E9EEF4 /* YYAnimDemoInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */; };
 		2C59E6905B0BF62EC01CC394 /* Pods_YYAnimator_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2153B02086D76CD8FBC4DC3D /* Pods_YYAnimator_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -39,6 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044393DD2A5F9D0200E9EEF4 /* YYEntranceListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYEntranceListController.h; sourceTree = "<group>"; };
+		044393DE2A5F9D0200E9EEF4 /* YYEntranceListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYEntranceListController.m; sourceTree = "<group>"; };
+		04439F8C2A60ED8800E9EEF4 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		04439F8E2A61272F00E9EEF4 /* YYAnimDemoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAnimDemoController.h; sourceTree = "<group>"; };
+		04439F8F2A61272F00E9EEF4 /* YYAnimDemoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAnimDemoController.m; sourceTree = "<group>"; };
+		04439F912A61276200E9EEF4 /* YYDemoConfigData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDemoConfigData.h; sourceTree = "<group>"; };
+		04439F922A61276200E9EEF4 /* YYDemoConfigData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDemoConfigData.m; sourceTree = "<group>"; };
+		04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimDemoInputView.m; sourceTree = "<group>"; };
+		04439F982A61495500E9EEF4 /* YYAnimDemoInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimDemoInputView.h; sourceTree = "<group>"; };
 		0C27BC944CDEB5F2B0309E34 /* Pods-YYAnimator_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAnimator_Tests.release.xcconfig"; path = "Target Support Files/Pods-YYAnimator_Tests/Pods-YYAnimator_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0D7799B9BE0DA0A0C8F5D58F /* YSAnimator.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YSAnimator.podspec; path = ../YSAnimator.podspec; sourceTree = "<group>"; };
 		2153B02086D76CD8FBC4DC3D /* Pods_YYAnimator_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYAnimator_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F2BDEB2965704C006F6529 /* Images.xcassets */,
+				04439F8C2A60ED8800E9EEF4 /* config.json */,
 				D7F2BDE12965704C006F6529 /* InfoPlist.strings */,
 				D7F2BDE62965704C006F6529 /* LaunchScreen.storyboard */,
 				D7F2BDEA2965704C006F6529 /* main.m */,
@@ -197,6 +212,14 @@
 				D7F2BDED2965704C006F6529 /* YYTestViewController.swift */,
 				D7F2BDE52965704C006F6529 /* YYViewController.h */,
 				D7F2BDEF2965704C006F6529 /* YYViewController.m */,
+				044393DD2A5F9D0200E9EEF4 /* YYEntranceListController.h */,
+				044393DE2A5F9D0200E9EEF4 /* YYEntranceListController.m */,
+				04439F8E2A61272F00E9EEF4 /* YYAnimDemoController.h */,
+				04439F8F2A61272F00E9EEF4 /* YYAnimDemoController.m */,
+				04439F982A61495500E9EEF4 /* YYAnimDemoInputView.h */,
+				04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */,
+				04439F912A61276200E9EEF4 /* YYDemoConfigData.h */,
+				04439F922A61276200E9EEF4 /* YYDemoConfigData.m */,
 			);
 			path = YYAnimator;
 			sourceTree = "<group>";
@@ -291,6 +314,7 @@
 				D7F2BDF12965704C006F6529 /* InfoPlist.strings in Resources */,
 				D7F2BDF72965704C006F6529 /* YYAnimator-Info.plist in Resources */,
 				D7F2BDF32965704C006F6529 /* LaunchScreen.storyboard in Resources */,
+				04439F8D2A60ED8800E9EEF4 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,8 +401,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7F2BDF82965704C006F6529 /* YYTestViewController.swift in Sources */,
+				04439F902A61272F00E9EEF4 /* YYAnimDemoController.m in Sources */,
+				044393DF2A5F9D0200E9EEF4 /* YYEntranceListController.m in Sources */,
 				D7F2BDF52965704C006F6529 /* main.m in Sources */,
 				D7F2BDF92965704C006F6529 /* YYViewController.m in Sources */,
+				04439F992A61495500E9EEF4 /* YYAnimDemoInputView.m in Sources */,
+				04439F932A61276200E9EEF4 /* YYDemoConfigData.m in Sources */,
 				D7F2BDF22965704C006F6529 /* YYAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

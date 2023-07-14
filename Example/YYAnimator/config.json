@@ -1,0 +1,249 @@
+{
+    "YYAMoveX": {
+        "title": "位移X",
+        "originProperty" : {"x": 0},
+        "targetProperty" : {"x": 200},
+        "option" : "linear",
+        "initialLayout" : "flex-start",
+        "key" : "moveX",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyOriginX",
+        "customSwiftPropKey" : "propertyOriginX",
+        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+    },
+    "YYAMoveY": {
+        "title": "位移Y",
+        "originProperty" : {"y": 0},
+        "targetProperty" : {"y": 100},
+        "option" : "linear",
+        "initialLayout" : "flex-start",
+        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填",
+        "key" : "moveY",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyOriginY",
+        "customSwiftPropKey" : "propertyOriginY"
+    },
+    "YYAMoveXY": {
+        "title": "位移XY",
+        "originProperty" : {"x": 0, "y": 0},
+        "targetProperty" : {"x": 200, "y": 120},
+        "OCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
+        "SwiftValue" : "CGPoint(x: \"x\", y: \"y\")",
+        "key" : "moveXY",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAScale": {
+        "title": "缩放",
+        "originProperty" : {"scale": 1},
+        "targetProperty" : {"scale": 3},
+        "option" : "linear",
+        "initialLayout" : "center",
+        "key" : "scale",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertYYcale",
+        "customSwiftPropKey" : "propertYYcale"
+    },
+    
+    "YYARotateAngle": {
+        "title": "旋转",
+        "originProperty" : {"rotation": 0},
+        "targetProperty" : {"rotation": 180},
+        "initialLayout" : "center",
+        "key" : "rotateAngle",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyRotation",
+        "customSwiftPropKey" : "propertyRotation"
+    },
+
+    "YYAAlpha": {
+        "title": "透明度",
+        "originProperty" : {"opacity": 1},
+        "targetProperty" : {"opacity": 0.1},
+        "option" : "linear",
+        "initialLayout" : "center",
+        "key" : "alpha",
+        "customPropKey" : "YYAnimatorCustomPropertyAlpha",
+        "customSwiftPropKey" : "propertyAlpha"
+    },
+    "YYAOriginX": {
+        "title": "OriginX",
+        "originProperty" : {"x": 0},
+        "targetProperty" : {"x": 200},
+        "option" : "linear",
+        "initialLayout" : "flex-start",
+        "key" : "originX",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyOriginX",
+        "customSwiftPropKey" : "propertyOriginX",
+        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+    },
+    "YYAOriginY": {
+        "title": "OriginY",
+        "originProperty" : {"y": 0},
+        "targetProperty" : {"y": 200},
+        "option" : "linear",
+        "initialLayout" : "flex-start",
+        "key" : "originY",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyOriginX",
+        "customSwiftPropKey" : "propertyOriginX",
+        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+    },
+    "YYAOrigin": {
+        "title": "Origin",
+        "originProperty" : {"x": 0, "y": 0},
+        "targetProperty" : {"x": 200, "y": 200},
+        "option" : "linear",
+        "initialLayout" : "flex-start",
+        "key" : "origin",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "customPropKey" : "YYAnimatorCustomPropertyOriginX",
+        "customSwiftPropKey" : "propertyOriginX",
+        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+    },
+    "YYASize": {
+        "title": "大小",
+        "originProperty" : {"width": 40, "height":40},
+        "targetProperty" : {"width": 60, "height":60},
+        "initialLayout" : "center",
+        "OCValue" : "[NSValue valueWithCGSize:CGSizeMake(\"width\", \"height\")]",
+        "SwiftValue" : "CGSize(width: \"width\", height: \"height\")",
+        "key" : "size",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAWidth": {
+        "title": "宽度",
+        "originProperty" : {"width": 40},
+        "targetProperty" : {"width": 60},
+        "initialLayout" : "center",
+        "key" : "width",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAHeight": {
+        "title": "高度",
+        "originProperty" : {"height": 40},
+        "targetProperty" : {"height": 60},
+        "initialLayout" : "center",
+        "key" : "height",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAAdjustWidth": {
+        "title": "调整宽度",
+        "originProperty" : {"adjustWidth": 40},
+        "targetProperty" : {"adjustWidth": 60},
+        "initialLayout" : "center",
+        "key" : "adjustWidth",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAAdjustHeight": {
+        "title": "调整高度",
+        "originProperty" : {"adjustHeight": 40},
+        "targetProperty" : {"adjustHeight": 60},
+        "initialLayout" : "center",
+        "key" : "adjustHeight",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
+    "YYAFrame": {
+        "title": "位置",
+        "originProperty" : {"x": 0, "y": 0, "width": 40, "height": 40},
+        "targetProperty" : {"x": 100, "y": 100, "width": 60, "height": 60},
+        "OCValue" : "[NSValue valueWithCGRect:CGRectMake(\"x\", \"y\", \"width\", \"height\")]",
+        "SwiftValue" : "CGRect(x: \"x\", y: \"y\", width: \"width\", height: \"height\")",
+        "key" : "frame"
+    },
+    "YYACountingNumberData": {
+        "title": "基本数字动画",
+        "originProperty" : {"fromValue": 0, "toValue": 0, "numCount": 0},
+        "targetProperty" : {"fromValue": 0, "toValue": 100, "numCount": 20},
+        "option" : "linear",
+        "initialLayout" : "center",
+        "time": 10,
+        "key" : "countingNumberData",
+        "OCValue" : "data",
+        "PreCode" : "YYAnimatorCountingNumberData *data = [[YYAnimatorCountingNumberData alloc] init]; data.fromValue = \"fromValue\"; data.toValue = \"toValue\"; int showNumLength = \"numCount\";\ndata.numberFormatBlock = ^NSString * _Nonnull(double numberValue) {\n    int value = ceilf(powf(10, showNumLength) * numberValue);\n    return [NSString stringWithFormat:@\"%0.\"numCount\"f\", value / powf(10, showNumLength)];\n};",
+        "SwiftPreCode" : "let data = YYAnimatorCountingNumberData()\ndata.fromValue = \"fromValue\"\ndata.toValue = \"toValue\"\nlet showNumLength = \"numCount\"\ndata.numberFormatBlock = {(numberValue: Double) -> String in\n     let value = ceilf(powf(10, Float(showNumLength)) * Float(numberValue))\n     return String(format: \"%0.\"numCount\"f\", value / powf(10, Float(showNumLength)))\n}",
+        "showContent" : "$value",
+        "swiftValue": "data"
+    },
+	"groupCombo": {
+		  "title": "组合：Combo",
+		  "views": {
+			"bg": {
+			  "steps": [
+				{
+				  "time": 1.0,
+				  "repeat": 3,
+				  "scale": "1.0, 1.5, 1.0",
+				  "time_YYAScale": "0, 0.6, 1.0",
+				  "x": "200",
+				  "list": ["YYAScale"]
+				}
+			  ],
+			  "showContent": "#49DECC22",
+			  "frame": {"layout": "center", "width": "74", "height": "74", "radius": "37"},
+			  "repeat": 1
+			},
+			"img1": {
+			  "steps": [{"time": 1.0, "repeat": 3, "scale": "1.0, 1.1, 1.0", "time_YYAScale": "0, 0.6, 1.0", "list": ["YYAScale"]}],
+			  "showContent": "https://lxcode.bs2cdn.yy.com/9fe663b4-4c42-4980-9e63-a823dc6ee89d.png",
+			  "frame": {"layout": "center","width": "74", "height": "74"},
+			  "repeat": 1
+			},
+			"img2": {
+			  "steps": [{"time": 1, "repeat": 3, "rotation": "360", "list": ["YYARotateAngle"]}],
+			  "showContent": "https://lxcode.bs2cdn.yy.com/c2cd7408-56d9-48d8-85cb-74f522426eae.png",
+			  "frame": {"layout": "center", "width": "74", "height": "74"},
+			  "repeat": 1
+			},
+			"label": {
+			  "steps": [{"time": 3, "repeat": 1, "fromValue": "3", "toValue": "0", "numCount": 0, "list": ["YYACountingNumberData"]}],
+			  "showContent": "$value",
+			  "frame": {"layout": "center", "width": "74", "height": "28"},
+			  "repeat": 1
+			}
+		  },
+		  "video": "https://lxcode.bs2cdn.yy.com/de4a9ae6-a9cb-4b74-ba95-4d0019b0b226.mp4" 
+	},
+    
+    "groupFlash" : {
+        "title" : "组合：缩放",
+        "views" : {
+			"view" : {
+				"steps" : [
+					{"time": 0.3, "scale" : "2.2, 1.0, 0.8, 1.2, 1.0", "time_YYAScale" : "0.06, 0.12, 0.18, 0.24, 0.3", "list": ["YYAScale"]}
+				],
+				"frame" : {"layout": "center", "width": "40", "height": "40"},
+				"showContent" : "x10",
+				"repeat" : 10
+			}
+        },
+        "video" : "https://lxcode.bs2cdn.yy.com/495f0369-b89a-4f0d-898d-499f20d92c51.MP4"
+    },
+    "group1" : {
+        "title": "组合：渐现&渐隐",
+        "views": {
+			"view": {
+				"steps" :[
+					{"time": 1, "scale": 1.5, "opacity": 1, "list": ["YYAScale", "YYAAlpha"]},
+					{"time": 2.5, "x": 200, "y": 200, "scale": 0.2, "list": ["YYAMoveXY", "YYAScale"]},
+					{"time": 1.5, "opacity": 0, "list": ["YYAAlpha"]}
+				],
+				"frame" : {"layout": "start", "width": "40", "height": "40" , "alpha": "0"},
+				"showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+			}
+        }
+    },
+    
+    "groupCreateAnimation" : {
+        "title" : "创建动画",
+        "views": {
+			"view" : {
+				"steps" : [
+					{"repeat": "1", "time": "3", "x": "120", "y": "120", "scale": "0.5", "list": ["YYAMoveXY", "YYAScale"]}
+				],
+				"frame" : {"layout": "start", "width": "40", "height": "40"},
+				"showContent" : "#00a13b"
+			}
+		}
+    }
+}

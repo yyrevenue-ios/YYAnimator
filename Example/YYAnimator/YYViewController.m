@@ -9,6 +9,8 @@
 #import "UIView+TweenStudio.h"
 #import "YYAnimator_Example-Swift.h"
 #import <Masonry/Masonry.h>
+#import "YYEntranceListController.h"
+
 
 @interface YYViewController ()
 
@@ -101,7 +103,8 @@
 }
 
 - (IBAction)swiftBtnClicked:(id)sender {
-    YYTestViewController *vc = [[YYTestViewController alloc] init];
+//    YYTestViewController *vc = [[YYTestViewController alloc] init];
+    YYEntranceListController *vc = [[YYEntranceListController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 //    [self.view updateConstraintsIfNeeded];
     

@@ -50,7 +50,7 @@
     if (self = [super init]) {
         _originalRect = layer.frame;
         _originalAlpha = layer.opacity;
-        NSNumber *scaleValue = [_layer valueForKeyPath: @"transform.scale"];
+        NSNumber *scaleValue = [layer valueForKeyPath: @"transform.scale.x"];
         if (scaleValue) {
             _originalScale = [scaleValue floatValue];
         } else {
@@ -645,9 +645,7 @@
     }
     
     CATransform3D transform = self.layer.transform;
-    CGFloat originalRotation = atan2(transform.m12, transform.m11);
-    CATransform3D zRotation = CATransform3DMakeRotation(YYAngle2Rad(angle) + originalRotation, 0, 0, 1.0);
-    self.layer.transform = zRotation;
+    self.layer.transform = CATransform3DRotate(self.layer.transform, YYAngle2Rad(angle), 0, 0, 1.0);
 }
 
 - (void)addAlphaAnimationToQueue:(YYAnimatorQueue *)queue withAlpha:(CGFloat)alpha reverse:(BOOL)reverse
@@ -677,7 +675,7 @@
         [self scaleAnimationCompletionWithScale:scale reverse:NO];
         scale = self.originalScale;
     }
-    CGFloat currentScale = [[self.layer valueForKeyPath: @"transform.scale"] floatValue];
+    CGFloat currentScale = [[self.layer valueForKeyPath: @"transform.scale.x"] floatValue];
     boundsAnimation.fromValue = @(currentScale);
     boundsAnimation.toValue = @(scale);
     [self addAnimation:boundsAnimation withAnimatorQueue:queue];
@@ -688,7 +686,9 @@
     if (reverse) {
         scale = self.originalScale;
     }
-    self.layer.transform = CATransform3DMakeScale(scale, scale, 1.0);
+    CGFloat currentScale = [[self.layer valueForKeyPath: @"transform.scale.x"] floatValue];
+    CGFloat targetScale = scale / currentScale;
+    self.layer.transform = CATransform3DScale(self.layer.transform, targetScale, targetScale, 1.0);
 }
 
 

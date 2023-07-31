@@ -20,11 +20,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6T-B0-cxh">
-                                <rect key="frame" x="304" y="564" width="59" height="35"/>
+                                <rect key="frame" x="269.5" y="564" width="93.5" height="35"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="列表"/>
+                                <buttonConfiguration key="configuration" style="gray" title="展示列表"/>
                                 <connections>
                                     <action selector="swiftBtnClicked:" destination="whP-gf-Uak" eventType="touchUpInside" id="UPm-aZ-R0a"/>
                                 </connections>

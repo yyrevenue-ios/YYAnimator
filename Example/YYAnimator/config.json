@@ -8,8 +8,7 @@
         "key" : "moveX",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
-        "customSwiftPropKey" : "propertyOriginX",
-        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+        "customSwiftPropKey" : "propertyOriginX"
     },
     "YYAMoveY": {
         "title": "位移Y",
@@ -17,7 +16,6 @@
         "targetProperty" : {"y": 100},
         "option" : "linear",
         "initialLayout" : "flex-start",
-        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填",
         "key" : "moveY",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginY",
@@ -27,8 +25,8 @@
         "title": "位移XY",
         "originProperty" : {"x": 0, "y": 0},
         "targetProperty" : {"x": 200, "y": 120},
-        "OCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
-        "SwiftValue" : "CGPoint(x: \"x\", y: \"y\")",
+        "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
+        "swiftValue" : "CGPoint(x: \"x\", y: \"y\")",
         "key" : "moveXY",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
     },
@@ -63,7 +61,8 @@
         "initialLayout" : "center",
         "key" : "alpha",
         "customPropKey" : "YYAnimatorCustomPropertyAlpha",
-        "customSwiftPropKey" : "propertyAlpha"
+        "customSwiftPropKey" : "propertyAlpha",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
     },
     "YYAOriginX": {
         "title": "OriginX",
@@ -95,73 +94,86 @@
         "targetProperty" : {"x": 200, "y": 200},
         "option" : "linear",
         "initialLayout" : "flex-start",
+        "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
+        "swiftValue" : "CGPoint(x: \"x\", y: \"y\")",
         "key" : "origin",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
         "customSwiftPropKey" : "propertyOriginX",
         "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
     },
+    "YYACenter": {
+        "title": "中心点",
+        "originProperty" : {"centerX": 20, "centerY":20},
+        "targetProperty" : {"centerX": 180, "centerY":180},
+        "initialLayout" : "flex-start",
+        "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"centerX\", \"centerY\")]",
+        "swiftValue" : "CGPoint(x: \"centerX\", y: \"centerY\")",
+        "key" : "center",
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+    },
     "YYASize": {
         "title": "大小",
         "originProperty" : {"width": 40, "height":40},
-        "targetProperty" : {"width": 60, "height":60},
+        "targetProperty" : {"width": 120, "height":120},
         "initialLayout" : "center",
-        "OCValue" : "[NSValue valueWithCGSize:CGSizeMake(\"width\", \"height\")]",
-        "SwiftValue" : "CGSize(width: \"width\", height: \"height\")",
+        "oCValue" : "[NSValue valueWithCGSize:CGSizeMake(\"width\", \"height\")]",
+        "swiftValue" : "CGSize(width: \"width\", height: \"height\")",
         "key" : "size",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "#00aa00"
     },
     "YYAWidth": {
         "title": "宽度",
+        "ps": "输入的width为目标最终的宽度",
         "originProperty" : {"width": 40},
-        "targetProperty" : {"width": 60},
+        "targetProperty" : {"width": 80},
         "initialLayout" : "center",
         "key" : "width",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "#00aa00"
     },
     "YYAHeight": {
         "title": "高度",
+        "ps": "输入的height为目标最终的高度",
         "originProperty" : {"height": 40},
-        "targetProperty" : {"height": 60},
+        "targetProperty" : {"height": 80},
         "initialLayout" : "center",
         "key" : "height",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "#00aa00"
     },
     "YYAAdjustWidth": {
-        "title": "调整宽度",
-        "originProperty" : {"adjustWidth": 40},
-        "targetProperty" : {"adjustWidth": 60},
+        "title": "增减宽度",
+        "ps": "输入的width为要增减的宽度\n最终的高度 = 原本的宽度 + 输入的width",
+        "originProperty" : {"addWidth": 0},
+        "targetProperty" : {"addWidth": 80},
         "initialLayout" : "center",
         "key" : "adjustWidth",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "#00aa00"
     },
     "YYAAdjustHeight": {
-        "title": "调整高度",
-        "originProperty" : {"adjustHeight": 40},
-        "targetProperty" : {"adjustHeight": 60},
+        "title": "增减高度",
+        "ps": "输入的height为要增减的高度\n最终的高度=原本的高度 + 输入的height",
+        "originProperty" : {"addHeight": 0},
+        "targetProperty" : {"addHeight": 80},
         "initialLayout" : "center",
         "key" : "adjustHeight",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "#00aa00"
     },
     "YYAFrame": {
-        "title": "位置",
+        "title": "坐标",
         "originProperty" : {"x": 0, "y": 0, "width": 40, "height": 40},
-        "targetProperty" : {"x": 100, "y": 100, "width": 60, "height": 60},
-        "OCValue" : "[NSValue valueWithCGRect:CGRectMake(\"x\", \"y\", \"width\", \"height\")]",
-        "SwiftValue" : "CGRect(x: \"x\", y: \"y\", width: \"width\", height: \"height\")",
-        "key" : "frame"
+        "targetProperty" : {"x": 100, "y": 100, "width": 120, "height": 120},
+        "oCValue" : "[NSValue valueWithCGRect:CGRectMake(\"x\", \"y\", \"width\", \"height\")]",
+        "swiftValue" : "CGRect(x: \"x\", y: \"y\", width: \"width\", height: \"height\")",
+        "key" : "frame",
+        "showContent" : "#00aa00"
     },
     "YYACountingNumberData": {
         "title": "基本数字动画",
-        "originProperty" : {"fromValue": 0, "toValue": 0, "numCount": 0},
-        "targetProperty" : {"fromValue": 0, "toValue": 100, "numCount": 20},
+        "targetProperty" : {"fromValue": 0, "toValue": 100, "numCount": 2},
         "option" : "linear",
         "initialLayout" : "center",
         "time": 10,
         "key" : "countingNumberData",
-        "OCValue" : "data",
-        "PreCode" : "YYAnimatorCountingNumberData *data = [[YYAnimatorCountingNumberData alloc] init]; data.fromValue = \"fromValue\"; data.toValue = \"toValue\"; int showNumLength = \"numCount\";\ndata.numberFormatBlock = ^NSString * _Nonnull(double numberValue) {\n    int value = ceilf(powf(10, showNumLength) * numberValue);\n    return [NSString stringWithFormat:@\"%0.\"numCount\"f\", value / powf(10, showNumLength)];\n};",
-        "SwiftPreCode" : "let data = YYAnimatorCountingNumberData()\ndata.fromValue = \"fromValue\"\ndata.toValue = \"toValue\"\nlet showNumLength = \"numCount\"\ndata.numberFormatBlock = {(numberValue: Double) -> String in\n     let value = ceilf(powf(10, Float(showNumLength)) * Float(numberValue))\n     return String(format: \"%0.\"numCount\"f\", value / powf(10, Float(showNumLength)))\n}",
         "showContent" : "$value",
         "swiftValue": "data"
     },

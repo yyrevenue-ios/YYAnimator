@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSString *initialLayout;
 @property (nonatomic, strong) NSString *option;
 @property (nonatomic, strong) NSString *swiftKey;
+@property (nonatomic, strong) NSString *oCValue;
+@property (nonatomic, strong) NSString *ps;
 @property (nonatomic, strong) NSString *customPropKey;
 @property (nonatomic, strong) NSString *customSwiftPropKey;
 

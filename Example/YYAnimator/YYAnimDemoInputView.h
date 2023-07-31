@@ -12,6 +12,7 @@
 
 @interface YYAnimDemoInputView : UIView
 
++ (instancetype)inputViewFor:(NSString *)text value:(NSNumber *)value;
 + (instancetype)inputViewFor:(NSString *)text origin:(NSNumber *)origin target:(NSNumber *)target;
 
 @property (nonatomic, strong) NSString *propKey;

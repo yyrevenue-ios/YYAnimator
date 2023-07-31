@@ -18,12 +18,20 @@
 @end
 
 @implementation YYAnimDemoInputView
++ (instancetype)inputViewFor:(NSString *)text value:(NSNumber *)value
+{
+    YYAnimDemoInputView *view = [[YYAnimDemoInputView alloc] init];
+    view.propKey = text;
+    [view buildUI:NO];
+    view.targetTextField.text = [value stringValue];
+    return view;
+}
 
 + (instancetype)inputViewFor:(NSString *)text origin:(NSNumber *)origin target:(NSNumber *)target
 {
     YYAnimDemoInputView *view = [[YYAnimDemoInputView alloc] init];
     view.propKey = text;
-    [view buildUI];
+    [view buildUI:YES];
     view.originTextField.text = [origin stringValue];
     view.targetTextField.text = [target stringValue];
     return view;
@@ -39,7 +47,7 @@
     return self.targetTextField.text;
 }
 
-- (void)buildUI
+- (void)buildUI:(BOOL)needTarget
 {
     self.layer.borderColor = [UIColor colorWithRed:188/255.0 green:188/255.0 blue:188/255.0 alpha:1.0].CGColor;
     self.layer.borderWidth = 0.5;
@@ -61,9 +69,15 @@
     }];
     self.label = nameLabel;
 //    UIView *line = [self createSeparateLine:self.label];
-    self.originTextField = [self createInputField:@"origin" placeHolder:@"初始值" lastView:self.label];
-    UIView *line = [self createSeparateLine:self.originTextField];
-    self.targetTextField = [self createInputField:@"target" placeHolder:@"目标值" lastView:line];
+    
+    if (needTarget) {
+        self.originTextField = [self createInputField:@"origin" placeHolder:@"初始值" lastView:self.label];
+        UIView *line = [self createSeparateLine:self.originTextField];
+        self.targetTextField = [self createInputField:@"target" placeHolder:@"目标值" lastView:line];
+    } else {
+        self.targetTextField = [self createInputFiled:self.propKey lastView:self.label];
+        self.originTextField = self.targetTextField;
+    }
 }
 
 - (UIView *)createSeparateLine:(UIView *)leftView
@@ -84,10 +98,10 @@
     UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     inputField.textAlignment = NSTextAlignmentCenter;
     inputField.backgroundColor = [UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1.0];
-    [self addSubview:inputField];
     inputField.textColor = [UIColor colorWithRed:10/255.0 green:118/255.0 blue:148/255.0 alpha:1];
     inputField.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
     inputField.placeholder = placeholder;
+    [self addSubview:inputField];
     [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(view.mas_right).offset(1);
         make.top.bottom.equalTo(self);
@@ -101,6 +115,23 @@
     [self addSubview:leftLabel];
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(inputField);
+    }];
+    return inputField;
+}
+
+- (UITextField *)createInputFiled:(NSString *)placeholder lastView:(UIView *)view
+{
+    UITextField *inputField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    inputField.textAlignment = NSTextAlignmentCenter;
+    inputField.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0];
+    inputField.textColor = [UIColor colorWithRed:10/255.0 green:118/255.0 blue:148/255.0 alpha:1];
+    inputField.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
+    inputField.placeholder = placeholder;
+    [self addSubview:inputField];
+    [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view.mas_right).offset(1);
+        make.top.bottom.equalTo(self);
+        make.right.equalTo(self.mas_right);
     }];
     return inputField;
 }

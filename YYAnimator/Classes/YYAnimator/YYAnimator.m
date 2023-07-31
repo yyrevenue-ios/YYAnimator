@@ -711,4 +711,44 @@
    
     [self addAnimation:positionAnimation withAnimatorQueue:queue];
 }
+
+- (void)addBezierPathAnimationToQueue:(YYAnimatorQueue *)queue withPath:(UIBezierPath *)path reverse:(BOOL)reverse
+{
+    YYKeyframeAnimation *positionAnimation = [self basicAnimationForKeyPath:@"position"];
+    if (reverse) {
+        [self bezierAnimationCompletionWithPath:path reverse:NO];
+        positionAnimation.path = [path bezierPathByReversingPath].CGPath;
+    } else {
+        positionAnimation.path = path.CGPath;
+    }
+    [self addAnimation:positionAnimation withAnimatorQueue:queue];
+}
+
+- (void)bezierAnimationCompletionWithPath:(UIBezierPath *)path reverse:(BOOL)reverse
+{
+    NSMutableArray *points = [NSMutableArray array];
+    CGPathApply(path.CGPath, (__bridge void *)points, getKeyPointsFromBezierpath);
+    if (reverse) {
+        self.layer.position = [[points firstObject] CGPointValue];
+    } else {
+        self.layer.position = [[points lastObject] CGPointValue];
+    }
+}
+
+void getKeyPointsFromBezierpath(void *info, const CGPathElement *element) {
+    NSMutableArray *bezierPoints = (__bridge NSMutableArray *)info;
+    CGPathElementType type = element->type;
+    CGPoint *points = element->points;
+    if (type != kCGPathElementCloseSubpath)
+    {
+       if ((type == kCGPathElementAddLineToPoint) ||
+           (type == kCGPathElementMoveToPoint))
+           [bezierPoints addObject:[NSValue valueWithCGPoint:points[0]]];
+       else if (type == kCGPathElementAddQuadCurveToPoint)
+           [bezierPoints addObject:[NSValue valueWithCGPoint:points[1]]];
+       else if (type == kCGPathElementAddCurveToPoint)
+           [bezierPoints addObject:[NSValue valueWithCGPoint:points[2]]];
+    }
+}
+
 @end

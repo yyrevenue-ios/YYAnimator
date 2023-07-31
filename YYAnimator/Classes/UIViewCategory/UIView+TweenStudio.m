@@ -35,6 +35,8 @@ YYAnimatorParamKey const YYASpringOptions = @"springOptions";
 YYAnimatorParamKey const YYAPreAnimationBlock = @"preAnimationBlock";
 YYAnimatorParamKey const YYAPostAnimationBlock = @"postAnimationBlock";
 YYAnimatorParamKey const YYAAnimationOption = @"animationOption";
+YYAnimatorParamKey const YYABezier = @"bezier";
+YYAnimatorParamKey const YYABezierOption = @"bezierOption";
 
 //auto layout
 YYAnimatorParamKey const YYATopConstraint = @"topConstraint";
@@ -336,6 +338,35 @@ static const char *kAnimatorTweenProduceKey;
         newParams.countingNumberValue = [params[YYACountingNumberValue] floatValue];
     }
     
+    if (params[YYABezier]) {
+        if (!params[YYABezierOption]) {
+            if ([params[YYABezier] isKindOfClass:NSArray.class]) {
+                NSInteger pathCount = [(NSArray *)params[YYABezier] count] - 1;
+                newParams.bezierOption = (pathCount % 3) == 0 ? YYBezierOptionCubic : (pathCount % 2 == 0 ? YYBezierOptionQuad : YYBezierOptionThrough);
+            } else {
+                newParams.bezierOption = YYBezierOptionQuad;
+            }
+        } else {
+            newParams.bezierOption = (YYBezierOption)[params[YYABezierOption] integerValue];
+            if (newParams.bezierOption < YYBezierOptionQuad || newParams.bezierOption > YYBezierOptionThrough) {
+                newParams.bezierOption = YYBezierOptionQuad;
+            }
+        }
+        newParams.bezier = [YYAnimationParams bezierFromParam:params[YYABezier] option:newParams.bezierOption];
+    }
     return newParams;
 }
+
+- (CGPoint)pointFromParam:(id)param
+{
+    if ([param isKindOfClass:NSValue.class]) {
+        return [param CGPointValue];
+    } else if ([param isKindOfClass:NSString.class]) {
+        NSString *string = param;
+        NSArray *arr = [string componentsSeparatedByString:@","];
+        return CGPointMake([arr.firstObject floatValue], [arr.lastObject floatValue]);
+    }
+    return CGPointZero;
+}
+
 @end

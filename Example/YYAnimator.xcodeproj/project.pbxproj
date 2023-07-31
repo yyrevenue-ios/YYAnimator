@@ -12,6 +12,8 @@
 		04439F902A61272F00E9EEF4 /* YYAnimDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F8F2A61272F00E9EEF4 /* YYAnimDemoController.m */; };
 		04439F932A61276200E9EEF4 /* YYDemoConfigData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F922A61276200E9EEF4 /* YYDemoConfigData.m */; };
 		04439F992A61495500E9EEF4 /* YYAnimDemoInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */; };
+		049992BA2A737AC00062377F /* YYBezierDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049992B92A737AC00062377F /* YYBezierDemoController.m */; };
+		049992C02A7399640062377F /* YYButtonsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049992BF2A7399640062377F /* YYButtonsController.m */; };
 		2C59E6905B0BF62EC01CC394 /* Pods_YYAnimator_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2153B02086D76CD8FBC4DC3D /* Pods_YYAnimator_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -53,6 +55,10 @@
 		04439F922A61276200E9EEF4 /* YYDemoConfigData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDemoConfigData.m; sourceTree = "<group>"; };
 		04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimDemoInputView.m; sourceTree = "<group>"; };
 		04439F982A61495500E9EEF4 /* YYAnimDemoInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimDemoInputView.h; sourceTree = "<group>"; };
+		049992B82A737AC00062377F /* YYBezierDemoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYBezierDemoController.h; sourceTree = "<group>"; };
+		049992B92A737AC00062377F /* YYBezierDemoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYBezierDemoController.m; sourceTree = "<group>"; };
+		049992BE2A7399640062377F /* YYButtonsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYButtonsController.h; sourceTree = "<group>"; };
+		049992BF2A7399640062377F /* YYButtonsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYButtonsController.m; sourceTree = "<group>"; };
 		0C27BC944CDEB5F2B0309E34 /* Pods-YYAnimator_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYAnimator_Tests.release.xcconfig"; path = "Target Support Files/Pods-YYAnimator_Tests/Pods-YYAnimator_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		0D7799B9BE0DA0A0C8F5D58F /* YSAnimator.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = YSAnimator.podspec; path = ../YSAnimator.podspec; sourceTree = "<group>"; };
 		2153B02086D76CD8FBC4DC3D /* Pods_YYAnimator_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYAnimator_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +226,10 @@
 				04439F972A61495500E9EEF4 /* YYAnimDemoInputView.m */,
 				04439F912A61276200E9EEF4 /* YYDemoConfigData.h */,
 				04439F922A61276200E9EEF4 /* YYDemoConfigData.m */,
+				049992B82A737AC00062377F /* YYBezierDemoController.h */,
+				049992B92A737AC00062377F /* YYBezierDemoController.m */,
+				049992BE2A7399640062377F /* YYButtonsController.h */,
+				049992BF2A7399640062377F /* YYButtonsController.m */,
 			);
 			path = YYAnimator;
 			sourceTree = "<group>";
@@ -401,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7F2BDF82965704C006F6529 /* YYTestViewController.swift in Sources */,
+				049992BA2A737AC00062377F /* YYBezierDemoController.m in Sources */,
 				04439F902A61272F00E9EEF4 /* YYAnimDemoController.m in Sources */,
 				044393DF2A5F9D0200E9EEF4 /* YYEntranceListController.m in Sources */,
 				D7F2BDF52965704C006F6529 /* main.m in Sources */,
@@ -408,6 +419,7 @@
 				04439F992A61495500E9EEF4 /* YYAnimDemoInputView.m in Sources */,
 				04439F932A61276200E9EEF4 /* YYDemoConfigData.m in Sources */,
 				D7F2BDF22965704C006F6529 /* YYAppDelegate.m in Sources */,
+				049992C02A7399640062377F /* YYButtonsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

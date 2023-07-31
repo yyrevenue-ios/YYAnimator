@@ -42,6 +42,13 @@ typedef NS_ENUM(NSInteger, YYAnimationAnchor) {
     YYAnimationAnchorBottomRight
 };
 
+// 贝塞尔曲线设置
+typedef NS_ENUM(NSInteger, YYBezierOption) {
+    YYBezierOptionQuad, //default, 二阶贝塞尔，设置 （1 + 2*N）个点，每两个点间有1个控制点
+    YYBezierOptionCubic, //三阶贝塞尔，设置（1 + 3*N）个点, 每两个点间有2个控制点
+    YYBezierOptionThrough   //设置的均为关键点，路线穿过这些点
+};
+
 @interface YYAnimatorCustomizedData : NSObject
 @property (nonatomic, assign) YYAnimatorCustomProperty property;
 @property (nonatomic, strong) NSArray *values;
@@ -175,6 +182,10 @@ typedef NS_ENUM(NSInteger, YYAnimationAnchor) {
 // 数字动画值
 @property (nonatomic, assign) CGFloat countingNumberValue;
 
+@property (nonatomic, strong) UIBezierPath *bezier;
+
+@property (nonatomic, assign) YYBezierOption bezierOption;
+
 - (BOOL)isMoveXYValid;
 
 - (BOOL)isOriginValid;
@@ -184,6 +195,8 @@ typedef NS_ENUM(NSInteger, YYAnimationAnchor) {
 - (BOOL)isCenterValid;
 
 - (BOOL)isFrameValid;
+
++ (UIBezierPath *)bezierFromParam:(id)object option:(YYBezierOption)option;
 
 @end
 

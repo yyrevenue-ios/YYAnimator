@@ -89,6 +89,10 @@ UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYACountingNumberData;
 /// 数字动画目标value
 UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYACountingNumberValue;
 
+/// 贝塞尔曲线
+UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYABezier;
+UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYABezierOption;
+
 #define YYAPoint(x,y) [NSValue valueWithCGPoint:CGPointMake(x, y)]
 #define YYASize(w,h) [NSValue valueWithCGSize:CGSizeMake(w, h)]
 #define YYARect(x,y,w,h) [NSValue valueWithCGRect:CGRectMake(x, y, w, h)]

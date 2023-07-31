@@ -198,6 +198,10 @@
     if (params.countingNumberValue != CGFLOAT_MAX) {
         [self addCountingNumberAnimationToQueue:animatorQueue withValue:params.countingNumberValue reverse:reverse];
     }
+    
+    if (params.bezier) {
+        [self addBezierPathAnimationToQueue:animatorQueue withPath:params.bezier reverse:reverse];
+    }
 }
 
 - (void)_prepareCompletionWithParams:(YYAnimationParams *)params reverse:(BOOL)reverse
@@ -303,6 +307,9 @@
     }
     if (params.centerYConstraint != CGFLOAT_MAX) {
         [self changeCenterYCompletionWithCenterY:params.centerYConstraint reverse:reverse];
+    }
+    if (params.bezier) {
+        [self bezierAnimationCompletionWithPath:params.bezier reverse:reverse];
     }
 }
 

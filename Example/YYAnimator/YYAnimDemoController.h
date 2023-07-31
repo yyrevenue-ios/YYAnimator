@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YYButtonsController.h"
+
 @class YYDemoConfigData;
 
-@interface YYAnimDemoController : UIViewController
+@interface YYAnimDemoController : YYButtonsController
 
 - (void)setConfigData:(YYDemoConfigData *)data;
 

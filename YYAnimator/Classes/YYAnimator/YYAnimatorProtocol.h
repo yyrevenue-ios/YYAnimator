@@ -119,6 +119,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addCountingNumberAnimationToQueue:(YYAnimatorQueue *)queue withValue:(CGFloat)value reverse:(BOOL)reverse;
 
+- (void)addBezierPathAnimationToQueue:(YYAnimatorQueue *)queue withPath:(UIBezierPath *)path reverse:(BOOL)reverse;
+- (void)bezierAnimationCompletionWithPath:(UIBezierPath *)path reverse:(BOOL)reverse;
+
+
 - (CGPoint)newPositionFromNewOrigin:(CGPoint)newOrigin;
 - (CGPoint)newPositionFromNewCenter:(CGPoint)newCenter;
 

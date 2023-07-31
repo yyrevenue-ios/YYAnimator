@@ -11,6 +11,8 @@
 #import <YYAnimator/UIView+TweenStudio.h>
 #import "YYDemoConfigData.h"
 #import "YYAnimDemoController.h"
+#import "YYBezierDemoController.h"
+
 
 NSString * const kCellIden = @"cellReuse";
 
@@ -102,7 +104,7 @@ NSString * const kCellIden = @"cellReuse";
         @"位置": @[YYAMoveX, YYAMoveY, YYAMoveXY, YYACenter, YYAFrame, YYAOriginX, YYAOriginY, YYAOrigin],
         @"宽高": @[YYASize,  YYAWidth, YYAHeight, YYAAdjustWidth, YYAAdjustHeight]
     };
-    self.sectionList = @[YYAAlpha, YYAScale, YYARotateAngle, YYACountingNumberData, @"位置", @"宽高"];
+    self.sectionList = @[YYABezier, YYAAlpha, YYAScale, YYARotateAngle, YYACountingNumberData, @"位置", @"宽高"];
     [self loadDataConfig];
 }
 
@@ -115,7 +117,7 @@ NSString * const kCellIden = @"cellReuse";
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
         NSMutableDictionary *convertedDict = [NSMutableDictionary dictionaryWithCapacity:dict.count];
         for (NSString *animId in dict.allKeys) {
-            YYDemoConfigData *data = [YYDemoConfigData dataFromConfigItem:[dict objectForKey:animId]];
+            YYDemoConfigData *data = [YYDemoConfigData dataFromConfigItem:[dict valueForKey:animId]];
             if (data.key != nil) {
                 [convertedDict setObject:data forKey:data.key];
             }
@@ -135,7 +137,7 @@ NSString * const kCellIden = @"cellReuse";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSString *key = [self.sectionList objectAtIndex:section];
-    NSArray *sublist = [self.datalist objectForKey:key];
+    NSArray *sublist = [self.datalist valueForKey:key];
     if (!sublist || [[self.foldState valueForKey:key] boolValue]) { //收起状态
         return 0;
     }
@@ -149,7 +151,7 @@ NSString * const kCellIden = @"cellReuse";
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         NSString *key = [self.sectionList objectAtIndex:indexPath.section];
-        NSArray *sublist = [self.datalist objectForKey:key];
+        NSArray *sublist = [self.datalist valueForKey:key];
         if (sublist && sublist.count > 0) {
             NSString *animId = [sublist objectAtIndex:indexPath.row];
             NSString *title = [[self.dataConfig objectForKey:animId] title];
@@ -164,7 +166,7 @@ NSString * const kCellIden = @"cellReuse";
                 return cell;
             }
         }
-        NSString *title = [[self.dataConfig objectForKey:key] title];
+        NSString *title = [[self.dataConfig valueForKey:key] title];
         cell.textLabel.text = key;
         cell.detailTextLabel.text = title;
     }
@@ -202,6 +204,11 @@ NSString * const kCellIden = @"cellReuse";
 
 - (void)showDetailPage:(NSString *)animId
 {
+    if ([animId isEqualToString:YYABezier]) {
+        YYBezierDemoController *vc = [[YYBezierDemoController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
     YYDemoConfigData *data = [self.dataConfig objectForKey:animId];
     if (data) {
         YYAnimDemoController *vc = [[YYAnimDemoController alloc] init];
@@ -212,25 +219,25 @@ NSString * const kCellIden = @"cellReuse";
 
 - (UIView *)sectionView:(NSString *)key index:(NSInteger)index
 {
-    YYEntranceHeadView *headView = [self.headViewCache objectForKey:key];
+    YYEntranceHeadView *headView = [self.headViewCache valueForKey:key];
     if (!headView) {
         headView = [[YYEntranceHeadView alloc] init];
         [self.headViewCache setValue:headView forKey:key];
     }
-    NSArray *sublist = [self.datalist objectForKey:key];
+    NSArray *sublist = [self.datalist valueForKey:key];
     headView.backgroundColor = sublist.count == 0 ? [UIColor whiteColor] :  [UIColor colorWithRed:239/255.0 green:238/255.0 blue:248/255.0 alpha:1];
     BOOL folded = [[self.foldState objectForKey:key] boolValue];
     [headView updateTitle:key foldState:(sublist == 0) ? YES : folded];
     __weak typeof(self) wself = self;
     headView.clickBlock = ^{
-        [wself tapOnSeaction:key];
+        [wself tapOnSection:key];
     };
     return headView;
 }
 
-- (void)tapOnSeaction:(NSString *)key
+- (void)tapOnSection:(NSString *)key
 {
-    if ([self.datalist objectForKey:key]) {
+    if ([self.datalist valueForKey:key]) {
         BOOL folded = [[self.foldState valueForKey:key] boolValue];
         [self.foldState setValue:@(!folded) forKey:key];
         [self.tableView reloadData];

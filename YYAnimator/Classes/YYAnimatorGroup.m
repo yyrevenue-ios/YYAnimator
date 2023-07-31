@@ -93,7 +93,9 @@
 
 - (void)addAnimationFunctionBlock:(YYKeyframeAnimationFunctionBlock)functionBlock
 {
-    [self.animations lastObject].functionBlock = functionBlock;
+    for (YYKeyframeAnimation *animation in self.animations) {
+        animation.functionBlock = functionBlock;
+    }
 }
 
 // AssembleAction是用于创建KeyAnimation的，只在执行到当前group的时候，才会通过block回调进行创建

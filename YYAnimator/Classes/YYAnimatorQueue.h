@@ -43,8 +43,8 @@ typedef void (^YYAnimatorQueueCompleteBlock)(void);
 
 - (void)updateAnchorWithAction:(YYAnimationAssembleAction)action;
 
-- (void)animateWithAnimationKey:(NSString *)animationKey reverse:(BOOL)reverse;
-- (void)executeCompletionActionsReverse:(BOOL)reverse;
+- (void)animateWithAnimationKey:(NSString *)animationKey;
+- (void)executeCompletionActions;
 - (void)executeConstraintActionsReverse:(BOOL)reverse;
 - (BOOL)isEmptiedAfterTryToRemoveCurrentTurnGroup;
 
@@ -55,6 +55,8 @@ typedef void (^YYAnimatorQueueCompleteBlock)(void);
 - (void)repeat:(NSInteger)count andIsAnimation:(BOOL)isAnimation;
 
 - (void)updateCurrentTurnGroupAnimationsDelay:(NSTimeInterval)delay;
+- (void)updateCurrentTurnGroupIsReverse:(BOOL)reverse;
+- (BOOL)isCurrentTurnGroupReverse;
 
 - (void)updateCurrentPreGroupAnimationBlock:(YYAnimatorGroupBlock)block;
 

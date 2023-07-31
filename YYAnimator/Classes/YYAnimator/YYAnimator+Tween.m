@@ -15,6 +15,23 @@
     [[self.animatorQueues lastObject] updateCurrentTurnGroupAnimationsDuration:duration];
 }
 
+- (void)updateCurrentAnimationDelay:(NSTimeInterval)duration
+{
+    [[self.animatorQueues lastObject] updateCurrentTurnGroupAnimationsDelay:duration];
+}
+
+- (void)updateCurrentAnimationIsReverse:(BOOL)reverse
+{
+    [[self.animatorQueues lastObject] updateCurrentTurnGroupIsReverse:reverse];
+}
+
+- (void)createOneAnimationWithDuration:(NSTimeInterval)duration
+{
+    YYAnimatorQueue *animatorQueue = [YYAnimatorQueue queueWithAnimator:self];
+    [animatorQueue updateCurrentTurnGroupAnimationsDuration:duration];
+    [self.animatorQueues addObject:animatorQueue];
+}
+
 - (void)createNewGroup
 {
     [[self.animatorQueues lastObject] createNewGroup];
@@ -347,9 +364,9 @@
     }
 }
 
-- (void)playReverse:(BOOL)reverse
+- (void)play
 {
-    [self animateWithAnimatorQueue:[self.animatorQueues lastObject] reverse:reverse];
+    [self animateWithAnimatorQueue:[self.animatorQueues lastObject]];
 }
 
 @end

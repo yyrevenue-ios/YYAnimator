@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat originalAlpha;
 @property (nonatomic, weak) UIView *view;
 
-- (void)animateWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse;
+- (void)animateWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue;
 
 - (void)addAnimationAssembleAction:(YYAnimationAssembleAction)action;
 - (void)addAnimationCompletionAction:(YYAnimationCompletionAction)action;

@@ -42,6 +42,7 @@
 {
     typeof(self) copYYelf = [[self.class allocWithZone:zone] initWithAnimator:self.animator andAnimatorQueue:self.animatorQueue];
     copYYelf.animationDelay = self.animationDelay;
+    copYYelf.isReverse = self.isReverse;
     copYYelf.animationDuration = self.animationDuration;
     copYYelf.preGroupBlock = [self.preGroupBlock copy];
     copYYelf.postGroupBlock = [self.postGroupBlock copy];
@@ -110,7 +111,7 @@
     [self.animationCompletionActions addObject:action];
 }
 
-- (void)animateWithAnimationKey:(NSString *)animationKey reverse:(BOOL)reverse
+- (void)animateWithAnimationKey:(NSString *)animationKey
 {
     // 执行动画组合前执行的block
     if (self.preGroupBlock) {
@@ -127,7 +128,7 @@
     // 1. 创建当前group的所有KeyFrameAnimation
     // 2. 修改functionBlock（easeIn, easeout等） ,functionBlock则是用于计算过程值的, 因为下面才会计算过程值，所以这里修改functionBlock对后面所有的keyframe的values的计算都生效
     for (YYAnimationAssembleAction action in self.animationAssembleActions) {
-        action(self.animator, self.animatorQueue, reverse);
+        action(self.animator, self.animatorQueue, self.isReverse);
     }
     
     for (YYKeyframeAnimation *animation in self.animations) {
@@ -157,9 +158,10 @@
     [self.animator.layer addAnimation:self.animationGroup forKey:animationKey];
 }
 
-- (void)executeCompletionActionsReverse:(BOOL)reverse
+- (void)executeCompletionActions
 {
     NSTimeInterval delay = MAX(self.animationGroup.beginTime - CACurrentMediaTime(), 0.0);
+    BOOL reverse = self.isReverse;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         for (YYAnimationCompletionAction action in self.animationCompletionActions) {
             [CATransaction begin];

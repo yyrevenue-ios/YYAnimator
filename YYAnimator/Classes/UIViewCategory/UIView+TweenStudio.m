@@ -60,7 +60,6 @@ YYAnimatorParamKey const _Nonnull YYACountingNumberValue = @"countingNumberValue
 @interface UIView (TweenStudio)
 
 @property (nonatomic, assign) BOOL isProducing;
-@property (nonatomic, assign) BOOL isReverse;
 
 @end
 
@@ -68,7 +67,7 @@ YYAnimatorParamKey const _Nonnull YYACountingNumberValue = @"countingNumberValue
 
 static const char *kAnimatorTweenStudioMapKey;
 static const char *kAnimatorTweenProduceKey;
-static const char *kAnimatorTweenReverseKey;
+
 - (YYAnimator *)tweenAnimator
 {
     YYAnimator * animator = objc_getAssociatedObject(self, &kAnimatorTweenStudioMapKey);
@@ -99,28 +98,16 @@ static const char *kAnimatorTweenReverseKey;
     return [objc_getAssociatedObject(self, &kAnimatorTweenProduceKey) boolValue];
 }
 
-- (void)setIsReverse:(BOOL)isReverse
-{
-    objc_setAssociatedObject(self, &kAnimatorTweenReverseKey, @(isReverse), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)isReverse
-{
-    return [objc_getAssociatedObject(self, &kAnimatorTweenReverseKey) boolValue];
-}
 
 - (YYTweenAnimatorBlock)yya_to
 {
     __weak typeof(self) wSelf = self;
     YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
-        if (wSelf.tweenAnimator.isPlaying) {
-            return;
-        }
-        wSelf.isReverse = NO;
-        [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
-        
+        [wSelf.tweenAnimator createOneAnimationWithDuration:duration];
+        [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
         [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
         [wSelf playAnimations];
+        return wSelf;
     };
     return animator;
 }
@@ -129,13 +116,11 @@ static const char *kAnimatorTweenReverseKey;
 {
     __weak typeof(self) wSelf = self;
     YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
-        if (wSelf.tweenAnimator.isPlaying) {
-            return;
-        }
-        wSelf.isReverse = YES;
-        [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
+        [wSelf.tweenAnimator createOneAnimationWithDuration:duration];
+        [wSelf.tweenAnimator updateCurrentAnimationIsReverse:YES];
         [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
         [wSelf playAnimations];
+        return wSelf;
     };
     return animator;
 }
@@ -146,23 +131,49 @@ static const char *kAnimatorTweenReverseKey;
     YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
         if (wSelf.isProducing) {
             [wSelf.tweenAnimator createNewGroup];
+        } else {
+            [wSelf.tweenAnimator createOneAnimationWithDuration:duration];
         }
         wSelf.isProducing = YES;
-        wSelf.isReverse = NO;
         [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
+        [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
         [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
-        
+        return wSelf;
+    };
+    return animator;
+}
+
+- (YYTweenAnimatorBlock)yya_then
+{
+    __weak typeof(self) wSelf = self;
+    YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
+        [wSelf.tweenAnimator createNewGroup];
+        [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
+        [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        return wSelf;
+    };
+    return animator;
+}
+
+- (YYTweenDelayAnimatorBlock)yya_thenAfter
+{
+    __weak typeof(self) wSelf = self;
+    YYTweenDelayAnimatorBlock animator = ^(NSTimeInterval duration, NSTimeInterval delay, NSDictionary<YYAnimatorParamKey, id> *params) {
+        [wSelf.tweenAnimator createNewGroup];
+        [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
+        [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
+        [wSelf.tweenAnimator updateCurrentAnimationDelay:delay];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        return wSelf;
     };
     return animator;
 }
 
 - (void)playAnimations
 {
-    if (self.tweenAnimator.isPlaying) {
-        return;
-    }
     self.isProducing = NO;
-    [self.tweenAnimator playReverse:self.isReverse];
+    [self.tweenAnimator play];
 }
 
 

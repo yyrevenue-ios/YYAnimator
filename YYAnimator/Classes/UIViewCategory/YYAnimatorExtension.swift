@@ -39,7 +39,7 @@ public struct YYAnimatorExtension {
     
     public mutating func playAnimations() {
         self.isProducing = false
-        self.animator.playReverse(self.isReverse)
+        self.animator.play()
     }
 }
 

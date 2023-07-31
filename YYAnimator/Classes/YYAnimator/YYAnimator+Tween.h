@@ -15,12 +15,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YYAnimator (Tween) <YYAnimatorProtocol>
 
 - (void)updateCurrentAnimationDuration:(NSTimeInterval)duration;
+- (void)updateCurrentAnimationDelay:(NSTimeInterval)duration;
+- (void)updateCurrentAnimationIsReverse:(BOOL)reverse;
 
+- (void)createOneAnimationWithDuration:(NSTimeInterval)duration;
 - (void)createNewGroup;
 
 - (void)addAnimationWithParams:(YYAnimationParams *)params;
 
-- (void)playReverse:(BOOL)reverse;
+- (void)play;
 
 @end
 

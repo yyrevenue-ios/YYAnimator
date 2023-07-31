@@ -54,9 +54,9 @@
 }
 
 // 执行动画，所以从左到右，取firstObject
-- (void)animateWithAnimationKey:(NSString *)animationKey reverse:(BOOL)reverse
+- (void)animateWithAnimationKey:(NSString *)animationKey
 {
-    [[self.animatorGroups firstObject] animateWithAnimationKey:animationKey reverse:reverse];
+    [[self.animatorGroups firstObject] animateWithAnimationKey:animationKey];
 }
 
 - (void)updateAnchorWithAction:(YYAnimationAssembleAction)action {
@@ -96,9 +96,9 @@
     [self.animationConstraintActions addObject:action];
 }
 
-- (void)executeCompletionActionsReverse:(BOOL)reverse
+- (void)executeCompletionActions
 {
-    [[self.animatorGroups firstObject] executeCompletionActionsReverse:reverse];
+    [[self.animatorGroups firstObject] executeCompletionActions];
 }
 
 - (void)executeConstraintActionsReverse:(BOOL)reverse
@@ -147,7 +147,8 @@
 
 - (void)createNewGroup
 {
-    [self.animatorGroups addObject:[YYAnimatorGroup groupWithAnimator:self.animator andAnimatorQueue:self]];
+    YYAnimatorGroup *group = [YYAnimatorGroup groupWithAnimator:self.animator andAnimatorQueue:self];
+    [self.animatorGroups addObject:group];
 }
 
 - (void)repeat:(NSInteger)count andIsAnimation:(BOOL)isAnimation
@@ -176,6 +177,16 @@
 - (void)updateCurrentTurnGroupAnimationsDelay:(NSTimeInterval)delay
 {
     [self.animatorGroups lastObject].animationDelay = delay;
+}
+
+- (void)updateCurrentTurnGroupIsReverse:(BOOL)reverse
+{
+    [self.animatorGroups lastObject].isReverse = reverse;
+}
+
+- (BOOL)isCurrentTurnGroupReverse
+{
+    return [self.animatorGroups lastObject].isReverse;
 }
 
 - (void)updateCurrentGroupSpringDamping:(CGFloat)dampingRatio initialVelocity:(CGFloat)initialVelocity options:(UIViewAnimationOptions)options

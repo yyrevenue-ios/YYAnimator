@@ -95,7 +95,8 @@ UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYACountingNumberValue;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^YYTweenAnimatorBlock)(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *);
+typedef UIView *_Nullable(^YYTweenAnimatorBlock)(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *);
+typedef UIView *_Nullable(^YYTweenDelayAnimatorBlock)(NSTimeInterval duration, NSTimeInterval delay, NSDictionary<YYAnimatorParamKey, id> *);
 
 @interface UIView (TweenStudio)
 
@@ -105,6 +106,9 @@ typedef void (^YYTweenAnimatorBlock)(NSTimeInterval duration, NSDictionary<YYAni
 
 @property (nonatomic, copy, readonly) YYTweenAnimatorBlock yya_add
     NS_SWIFT_UNAVAILABLE("Swift unavailable");
+
+@property (nonatomic, copy, readonly) YYTweenAnimatorBlock yya_then;
+@property (nonatomic, copy, readonly) YYTweenDelayAnimatorBlock yya_thenAfter;
 
 - (void)playAnimations NS_SWIFT_UNAVAILABLE("Swift unavailable");
 - (void)removeAnimator;

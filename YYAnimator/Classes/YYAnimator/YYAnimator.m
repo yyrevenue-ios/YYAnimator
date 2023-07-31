@@ -69,7 +69,7 @@
 
 - (NSMutableArray<YYAnimatorQueue *> *)animatorQueues {
     if (!_animatorQueues) {
-        _animatorQueues = [NSMutableArray arrayWithObject:[YYAnimatorQueue queueWithAnimator:self]];
+        _animatorQueues = [NSMutableArray array];
     }
     
     return _animatorQueues;
@@ -236,7 +236,7 @@
     animator.layer.anchorPoint = anchorPoint;
 }
 
-- (void)animateWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse {
+- (void)animateWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue {
     self.isPlaying = YES;
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
@@ -244,14 +244,16 @@
         if (animatorQueue.shouldRemoveOnCompletion) {
             [self.layer removeAnimationForKey:animatorQueue.animationKey];
         }
-        [self queueGroupDidFinishAnimationsWithAnimatorQueue:animatorQueue reverse:reverse];
+        [self queueGroupDidFinishAnimationsWithAnimatorQueue:animatorQueue];
     }];
-    [self animateGroupWithAnimatorQueue:animatorQueue reverse:reverse];
+    NSAssert([self.animatorQueues containsObject:animatorQueue], @"current queue not exists");
+    [animatorQueue animateWithAnimationKey:animatorQueue.animationKey];
     [CATransaction commit];
-    [self executeAnimationCompletionActionsWithAnimatorQueue:animatorQueue reverse:reverse];
+    [animatorQueue executeCompletionActions];
 }
 
-- (void)queueGroupDidFinishAnimationsWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse {
+- (void)queueGroupDidFinishAnimationsWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue {
+    BOOL reverse = [animatorQueue isCurrentTurnGroupReverse];
     if ([animatorQueue isEmptiedAfterTryToRemoveCurrentTurnGroup]) {
         [self executeConstraintCompletionActionsWithAnimatorQueue:animatorQueue reverse:reverse];
         [self.animatorQueues removeObject:animatorQueue];
@@ -263,19 +265,10 @@
             }
         }
     } else {
-        [self animateWithAnimatorQueue:animatorQueue reverse:reverse];
+        [self animateWithAnimatorQueue:animatorQueue];
     }
 }
 
-- (void)animateGroupWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse {
-    NSAssert([self.animatorQueues containsObject:animatorQueue], @"current queue not exists");
-    
-    [animatorQueue animateWithAnimationKey:animatorQueue.animationKey reverse:reverse];
-}
-
-- (void)executeAnimationCompletionActionsWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse {
-    [animatorQueue executeCompletionActionsReverse:reverse];
-}
 
 - (void)executeConstraintCompletionActionsWithAnimatorQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse {
     [animatorQueue executeConstraintActionsReverse:reverse];

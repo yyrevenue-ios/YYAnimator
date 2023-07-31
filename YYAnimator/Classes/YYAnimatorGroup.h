@@ -38,6 +38,7 @@ typedef void (^YYAnimationCompletionAction)(__weak YYAnimator *animator, BOOL re
 @property (nonatomic, weak) YYAnimatorQueue *animatorQueue;
 @property (nonatomic, assign) NSTimeInterval animationDelay;
 @property (nonatomic, assign) NSTimeInterval animationDuration;
+@property (nonatomic, assign) BOOL isReverse;
 @property (nonatomic, copy) YYAnimatorGroupBlock preGroupBlock;
 @property (nonatomic, copy) YYAnimatorGroupBlock postGroupBlock;
 @property (nonatomic, copy) YYAnimationAssembleAction anchorAssembleAction;
@@ -63,9 +64,9 @@ typedef void (^YYAnimationCompletionAction)(__weak YYAnimator *animator, BOOL re
 // 这里的CompletionAction是专门用来在执行完动画之后，对视图的属性进行修改的（是必须的操作），而上面的postGroupBlock,则是给调用者在每个组合动画结束后添加所需执行的逻辑
 - (void)addAnimationCompletionAction:(YYAnimationCompletionAction)action;
 
-- (void)animateWithAnimationKey:(NSString *)animationKey reverse:(BOOL)reverse;
+- (void)animateWithAnimationKey:(NSString *)animationKey;
 
-- (void)executeCompletionActionsReverse:(BOOL)reverse;
+- (void)executeCompletionActions;
 - (void)executePostGroupBlock;
 
 @end

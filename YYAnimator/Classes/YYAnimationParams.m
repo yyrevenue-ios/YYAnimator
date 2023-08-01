@@ -59,6 +59,7 @@
         self.frame = CGRectMake(CGFLOAT_MAX, CGFLOAT_MAX, CGFLOAT_MAX, CGFLOAT_MAX);
         self.alpha = -1.0;
         self.scale = -1.0;
+        self.rotateAngle = CGFLOAT_MAX;
         self.topConstraint = CGFLOAT_MAX;
         self.bottomConstraint = CGFLOAT_MAX;
         self.leftConstraint = CGFLOAT_MAX;

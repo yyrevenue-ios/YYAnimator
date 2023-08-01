@@ -19,6 +19,7 @@
 @property (nonatomic, assign) CGRect originalRect;
 @property (nonatomic, assign) CGFloat originalAlpha;
 @property (nonatomic, assign) CGFloat originalScale;
+@property (nonatomic, assign) CGFloat originalAngle;
 @property (nonatomic, weak) UIView *view;
 @property (nonatomic, strong, readwrite) YYACountingLayer *countingLayer;
 
@@ -56,6 +57,7 @@
         } else {
             _originalScale = 1.0;
         }
+        self.originalAngle = atan2(layer.transform.m12, layer.transform.m11);
         _layer = layer;
     }
     
@@ -620,25 +622,25 @@
 - (void)addRotationZAnimationToQueue:(YYAnimatorQueue *)queue withAngle:(float)angle reverse:(BOOL)reverse
 {
     YYKeyframeAnimation *rotationAnimation = [self basicAnimationForKeyPath:@"transform.rotation.z"];
+    CGFloat targetRotation = YYAngle2Rad(angle);
+    CGFloat originalRotation = self.originalAngle;
     if (reverse) {
-        [self rotationZAnimationWithAngle:angle reverse:NO];
-        angle = -angle;
+        [self rotationZAnimationWithAngle:(-angle) reverse:NO];
+        originalRotation = targetRotation;
+        targetRotation = self.originalAngle;
+        self.originalScale = originalRotation;
     }
-    CATransform3D transform = self.layer.transform;
-    CGFloat originalRotation = atan2(transform.m12, transform.m11);
     rotationAnimation.fromValue = @(originalRotation);
-    rotationAnimation.toValue = @(originalRotation + YYAngle2Rad(angle));
+    rotationAnimation.toValue = @(targetRotation);
     [self addAnimation:rotationAnimation withAnimatorQueue:queue];
 }
 
 - (void)rotationZAnimationWithAngle:(float)angle reverse:(BOOL)reverse
 {
-    if (reverse) {
-        angle = -angle;
-    }
-    
-    CATransform3D transform = self.layer.transform;
-    self.layer.transform = CATransform3DRotate(self.layer.transform, YYAngle2Rad(angle), 0, 0, 1.0);
+    CGFloat currentScale = [[self.layer valueForKeyPath: @"transform.scale.x"] floatValue];
+    CATransform3D scaleTransform = CATransform3DMakeScale(currentScale, currentScale, 1.0);
+    CGFloat finalAngle = reverse ? self.originalAngle : YYAngle2Rad(angle);
+    self.layer.transform = CATransform3DRotate(scaleTransform, finalAngle, 0, 0, 1);
 }
 
 - (void)addAlphaAnimationToQueue:(YYAnimatorQueue *)queue withAlpha:(CGFloat)alpha reverse:(BOOL)reverse
@@ -680,8 +682,15 @@
         scale = self.originalScale;
     }
     CGFloat currentScale = [[self.layer valueForKeyPath: @"transform.scale.x"] floatValue];
-    CGFloat targetScale = scale / currentScale;
-    self.layer.transform = CATransform3DScale(self.layer.transform, targetScale, targetScale, 1.0);
+    if (currentScale == 0) {
+        CATransform3D transform = self.layer.transform;
+        CGFloat originalRotation = atan2(transform.m12, transform.m11);
+        CATransform3D zRotation = CATransform3DMakeRotation(originalRotation, 0, 0, 1.0);
+        self.layer.transform = CATransform3DScale(zRotation, scale, scale, 1.0);
+    } else {
+        CGFloat targetScale = scale / currentScale;
+        self.layer.transform = CATransform3DScale(self.layer.transform, targetScale, targetScale, 1.0);
+    }
 }
 
 

@@ -139,7 +139,7 @@
         [self addAdjustHeightAnimationToQueue:animatorQueue withHeight:params.adjustHeight reverse:reverse];
     }
     
-    if (params.rotateAngle != 0) {
+    if (params.rotateAngle != CGFLOAT_MAX) {
         [self addRotationZAnimationToQueue:animatorQueue withAngle:params.rotateAngle reverse:reverse];
     }
     
@@ -258,7 +258,7 @@
         [self adjustHeightAnimationCompletionWithHeight:params.adjustHeight reverse:reverse];
     }
     
-    if (params.rotateAngle != 0) {
+    if (params.rotateAngle != CGFLOAT_MAX) {
         [self rotationZAnimationWithAngle:params.rotateAngle reverse:reverse];
     }
     

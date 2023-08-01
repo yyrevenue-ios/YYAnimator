@@ -186,7 +186,7 @@
         self.animateView.transform = CGAffineTransformMakeScale(scale, scale);
     }
     if ([origin valueForKey:@"rotation"]) {
-        CGFloat angle = [origin floatWithKey:@"rotation" or:0] * 2 * M_PI;
+        CGFloat angle = [origin floatWithKey:@"rotation" or:0] / 360.0 * 2 * M_PI;
         self.animateView.transform = CGAffineTransformRotate(self.animateView.transform, angle);
     }
 }

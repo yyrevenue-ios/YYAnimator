@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UIView *cubicRippleView;
 @property (nonatomic, strong) NSMutableArray *cubicRipplePoints;
 
-@property (nonatomic, strong) UIImageView *playView;
+@property (nonatomic, strong) UIView *playView;
 
 @end
 
@@ -60,7 +60,7 @@
     [self pathLayer].path = [YYAnimationParams bezierFromParam:self.quadRipplePoints option:YYBezierOptionQuad].CGPath;
     [self pathLayer].path = [YYAnimationParams bezierFromParam:self.cubicRipplePoints option:YYBezierOptionCubic].CGPath;
     
-    self.playView = [self candyView:CGRectMake(0, 608, 21, 34)];
+    self.playView = [self playViewWithRect:CGRectMake(0, 608, 10, 10)];
 }
 
 - (UIView *)playViewWithRect:(CGRect)rect
@@ -70,14 +70,6 @@
     view.backgroundColor = [UIColor blueColor];
     [self.view addSubview:view];
     return view;
-}
-
-- (UIImageView *)candyView:(CGRect)rect
-{
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.image = [UIImage imageNamed:@"num_7"];
-    [self.view addSubview:imageView];
-    return imageView;
 }
 
 - (CAShapeLayer *)pathLayer

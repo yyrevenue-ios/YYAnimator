@@ -4,11 +4,12 @@
         "originProperty" : {"x": 0},
         "targetProperty" : {"x": 200},
         "option" : "linear",
-        "initialLayout" : "flex-start",
+        "initialLayout" : "0,0",
         "key" : "moveX",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
-        "customSwiftPropKey" : "propertyOriginX"
+        "customSwiftPropKey" : "propertyOriginX",
+        "ps": "输入的x为要增减的距离x\n最终的坐标x = 原本的坐标x + 输入的x"
     },
     "YYAMoveY": {
         "title": "位移Y",
@@ -19,16 +20,19 @@
         "key" : "moveY",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginY",
-        "customSwiftPropKey" : "propertyOriginY"
+        "customSwiftPropKey" : "propertyOriginY",
+        "ps": "输入的y为要增减的距离y\n最终的坐标y = 原本的坐标y + 输入的y"
     },
     "YYAMoveXY": {
         "title": "位移XY",
-        "originProperty" : {"x": 0, "y": 0},
-        "targetProperty" : {"x": 200, "y": 120},
+        "originProperty" : {"x": 100, "y": 100},
+        "targetProperty" : {"x": 200, "y": 200},
+        "initialLayout" : "100,100",
         "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
         "swiftValue" : "CGPoint(x: \"x\", y: \"y\")",
         "key" : "moveXY",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "ps": "输入的x、y为要增减的距离\n最终的坐标 = 原本的坐标 + 输入的(x、y)"
     },
     "YYAScale": {
         "title": "缩放",
@@ -66,51 +70,52 @@
     },
     "YYAOriginX": {
         "title": "OriginX",
-        "originProperty" : {"x": 0},
+        "originProperty" : {"x": 100},
         "targetProperty" : {"x": 200},
         "option" : "linear",
-        "initialLayout" : "flex-start",
+        "initialLayout" : "100,0",
         "key" : "originX",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
         "customSwiftPropKey" : "propertyOriginX",
-        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+        "ps": "输入的x是终点坐标的x\n最终的坐标x = 输入的x"
     },
     "YYAOriginY": {
         "title": "OriginY",
-        "originProperty" : {"y": 0},
+        "originProperty" : {"y": 100},
         "targetProperty" : {"y": 200},
         "option" : "linear",
-        "initialLayout" : "flex-start",
+        "initialLayout" : "0,100",
         "key" : "originY",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
         "customSwiftPropKey" : "propertyOriginX",
-        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+        "ps": "输入的x是终点坐标的y\n最终的坐标y = 输入的y"
     },
     "YYAOrigin": {
         "title": "Origin",
-        "originProperty" : {"x": 0, "y": 0},
+        "originProperty" : {"x": 100, "y": 100},
         "targetProperty" : {"x": 200, "y": 200},
         "option" : "linear",
-        "initialLayout" : "flex-start",
+        "initialLayout" : "100,100",
         "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"x\", \"y\")]",
         "swiftValue" : "CGPoint(x: \"x\", y: \"y\")",
         "key" : "origin",
         "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
         "customPropKey" : "YYAnimatorCustomPropertyOriginX",
         "customSwiftPropKey" : "propertyOriginX",
-        "ps" : "option默认就是linear。 initialLayout默认就是flex-start 都可以不填"
+        "ps": "输入的x是终点坐标\n最终的坐标 = 输入的(x,y)"
     },
     "YYACenter": {
         "title": "中心点",
-        "originProperty" : {"centerX": 20, "centerY":20},
-        "targetProperty" : {"centerX": 180, "centerY":180},
-        "initialLayout" : "flex-start",
+        "originProperty" : {"centerX": 100, "centerY":100},
+        "targetProperty" : {"centerX": 160, "centerY":160},
+        "initialLayout" : "80,80",
         "oCValue" : "[NSValue valueWithCGPoint:CGPointMake(\"centerX\", \"centerY\")]",
         "swiftValue" : "CGPoint(x: \"centerX\", y: \"centerY\")",
         "key" : "center",
-        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png"
+        "showContent" : "https://lxcode.bs2cdn.yy.com/878793e9-8113-4574-84d5-9af5d6eeebc2.png",
+        "ps": "输入的x、y是终点位置的中心点\n最终的坐标中点 = 输入的(x,y)"
     },
     "YYASize": {
         "title": "大小",
@@ -120,7 +125,8 @@
         "oCValue" : "[NSValue valueWithCGSize:CGSizeMake(\"width\", \"height\")]",
         "swiftValue" : "CGSize(width: \"width\", height: \"height\")",
         "key" : "size",
-        "showContent" : "#00aa00"
+        "showContent" : "#00aa00",
+        "ps": "输入的width、height是最终的宽高\n最终的宽高 = 输入的(width,height)"
     },
     "YYAWidth": {
         "title": "宽度",
@@ -151,7 +157,7 @@
     },
     "YYAAdjustHeight": {
         "title": "增减高度",
-        "ps": "输入的height为要增减的高度\n最终的高度=原本的高度 + 输入的height",
+        "ps": "输入的height为要增减的高度\n最终的高度 = 原本的高度 + 输入的height",
         "originProperty" : {"addHeight": 0},
         "targetProperty" : {"addHeight": 80},
         "initialLayout" : "center",
@@ -165,7 +171,8 @@
         "oCValue" : "[NSValue valueWithCGRect:CGRectMake(\"x\", \"y\", \"width\", \"height\")]",
         "swiftValue" : "CGRect(x: \"x\", y: \"y\", width: \"width\", height: \"height\")",
         "key" : "frame",
-        "showContent" : "#00aa00"
+        "showContent" : "#00aa00",
+        "ps": "最终的坐标 = 输入的坐标"
     },
     "YYACountingNumberData": {
         "title": "基本数字动画",

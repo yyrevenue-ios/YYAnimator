@@ -152,12 +152,12 @@
     return nil;;
 }
 
-+ (CGPoint)pointFromParam:(id)param
++ (CGPoint)pointFromParam:(id)object
 {
-    if ([param isKindOfClass:NSValue.class]) {
-        return [param CGPointValue];
-    } else if ([param isKindOfClass:NSString.class]) {
-        NSString *string = param;
+    if ([object isKindOfClass:NSValue.class]) {
+        return [object CGPointValue];
+    } else if ([object isKindOfClass:NSString.class]) {
+        NSString *string = object;
         NSArray *arr = [string componentsSeparatedByString:@","];
         return CGPointMake([arr.firstObject floatValue], [arr.lastObject floatValue]);
     }

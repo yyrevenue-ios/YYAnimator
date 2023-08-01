@@ -88,6 +88,9 @@
         self.navigationItem.title = [NSString stringWithFormat:@"%@： %@", data.title, data.key];
         [self setupViews];
         [self createAnimateView];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self clickTo:nil];
+        });
     }
 }
 
@@ -178,6 +181,12 @@
     initicalRect.origin.y = [origin floatWithKey:@"y" or:initicalRect.origin.y];
     initicalRect.size.width = [origin floatWithKey:@"width" or:initicalRect.size.width];
     initicalRect.size.height = [origin floatWithKey:@"height" or:initicalRect.size.height];
+    if ([origin objectForKey:@"centerX"]) {
+        initicalRect.origin.x = [origin floatWithKey:@"centerX"] - 0.5 * initicalRect.size.width;
+    }
+    if ([origin objectForKey:@"centerY"]) {
+        initicalRect.origin.y = [origin floatWithKey:@"centerY"] - 0.5 * initicalRect.size.height;
+    }
     self.animateView.frame = initicalRect;
     self.placeHolderView.frame = initicalRect;
     self.animateView.alpha = [origin floatWithKey:@"alpha" or:1.0];
@@ -263,6 +272,9 @@
     CGRect frame = CGRectMake(0, 0, 40, 40);
     if ([self.data.initialLayout isEqualToString:@"center"]) {
         frame.origin = CGPointMake(CGRectGetWidth(self.animAreaView.bounds) * 0.5 - 20, CGRectGetHeight(self.animAreaView.bounds) * 0.5 - 20);
+    } else if ([self.data.initialLayout containsString:@","]){
+        CGPoint p = [YYAnimationParams pointFromParam:self.data.initialLayout];
+        frame.origin = p;
     }
     return frame;
 }
@@ -302,7 +314,7 @@
     [self.view addSubview:self.codeView];
     [self.codeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.fromButton.mas_top).offset(-2);
+        make.top.equalTo(self.view.mas_top).offset(top);
         make.height.equalTo(@(30));
     }];
     self.codeView.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1.0];
@@ -310,10 +322,10 @@
     self.codeView.editable = NO;
     
     [self.animAreaView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(top);
+        make.bottom.equalTo(self.fromButton.mas_top).offset(-2);
         make.left.equalTo(self.view).offset(1);
         make.right.equalTo(self.view).offset(-1);
-        make.bottom.equalTo(self.codeView.mas_top).offset(-0);
+        make.top.equalTo(self.codeView.mas_bottom).offset(2);
     }];
 }
 

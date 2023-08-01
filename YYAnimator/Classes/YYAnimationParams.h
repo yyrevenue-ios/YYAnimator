@@ -197,6 +197,7 @@ typedef NS_ENUM(NSInteger, YYBezierOption) {
 - (BOOL)isFrameValid;
 
 + (UIBezierPath *)bezierFromParam:(id)object option:(YYBezierOption)option;
++ (CGPoint)pointFromParam:(id)object;
 
 @end
 

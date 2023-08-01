@@ -110,7 +110,7 @@
     UILabel *leftLabel = [[UILabel alloc] init];
     leftLabel.text = title;
     leftLabel.font = [UIFont systemFontOfSize:10];
-    leftLabel.textColor = [UIColor darkGrayColor];
+    leftLabel.textColor = [UIColor blackColor];
     [leftLabel sizeToFit];
     [self addSubview:leftLabel];
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {

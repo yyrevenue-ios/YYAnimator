@@ -72,6 +72,7 @@
 @property (nonatomic, strong) YYDemoConfigData *data;
 @property (nonatomic, strong) UIView *animAreaView;
 @property (nonatomic, strong) UIView *placeHolderView;
+@property (nonatomic, strong) CAShapeLayer *placeHolderLayer;
 @property (nonatomic, strong) UIView *animateView;
 @property (nonatomic, strong) UITextView *codeView;
 @property (nonatomic, strong) NSMutableArray *propInputArray;
@@ -189,6 +190,7 @@
     }
     self.animateView.frame = initicalRect;
     self.placeHolderView.frame = initicalRect;
+    self.placeHolderLayer.path = [UIBezierPath bezierPathWithRoundedRect:self.placeHolderView.bounds cornerRadius:0].CGPath;
     self.animateView.alpha = [origin floatWithKey:@"alpha" or:1.0];
     if ([origin valueForKey:@"scale"]) {
         CGFloat scale = [origin floatWithKey:@"scale" or:1.0];
@@ -249,6 +251,7 @@
     border.strokeColor = [UIColor blueColor].CGColor;
     [placeHolder.layer addSublayer:border];
     self.placeHolderView = placeHolder;
+    self.placeHolderLayer = border;
     [self.animAreaView addSubview:placeHolder];
 }
 
@@ -294,7 +297,7 @@
         top = CGRectGetMaxY(label.frame) + 12;
     }
     self.propInputArray = [NSMutableArray arrayWithCapacity:self.data.targetProperty.count];
-    [self createOneInput:@"time" origin:@(1) target:nil topOffset:&top];
+    [self createOneInput:@"time" origin:nil target:@(1) topOffset:&top];
     if ([self.data.key isEqualToString:YYACountingNumberData])  {
         [self createOneInput:@"value" origin:[self.data.targetProperty valueForKey:@"fromValue"] target:[self.data.targetProperty valueForKey:@"toValue"] topOffset:&top];
     } else {
@@ -303,7 +306,7 @@
         }
     }
 //    [self createOneInput:@"repeat" origin:@(1) target:nil topOffset:&top];
-    [self createOneInput:@"delay" origin:@(0) target:nil topOffset:&top];
+    [self createOneInput:@"delay" origin:nil target:@(0) topOffset:&top];
     
     self.animAreaView = [[UIView alloc] initWithFrame:CGRectMake(1, top, CGRectGetWidth(fullBounds) - 2, CGRectGetHeight(fullBounds) - top - 84)];
     self.animAreaView.layer.borderColor = [UIColor colorWithRed:82/255.0 green:178/255.0 blue:205/255.0 alpha:1].CGColor;
@@ -333,7 +336,7 @@
 {
     CGFloat height = 48;
     CGFloat gap = 12;
-    YYAnimDemoInputView *inputView = target ? [YYAnimDemoInputView inputViewFor:key origin:origin target:target] : [YYAnimDemoInputView inputViewFor:key value:origin];
+    YYAnimDemoInputView *inputView = origin ? [YYAnimDemoInputView inputViewFor:key origin:origin target:target] : [YYAnimDemoInputView inputViewFor:key value:target];
     [self.view addSubview:inputView];
     [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(*top);

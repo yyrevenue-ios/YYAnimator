@@ -149,7 +149,6 @@
     "YYAAdjustWidth": {
         "title": "增减宽度",
         "ps": "输入的width为要增减的宽度\n最终的高度 = 原本的宽度 + 输入的width",
-        "originProperty" : {"addWidth": 0},
         "targetProperty" : {"addWidth": 80},
         "initialLayout" : "center",
         "key" : "adjustWidth",
@@ -158,7 +157,6 @@
     "YYAAdjustHeight": {
         "title": "增减高度",
         "ps": "输入的height为要增减的高度\n最终的高度 = 原本的高度 + 输入的height",
-        "originProperty" : {"addHeight": 0},
         "targetProperty" : {"addHeight": 80},
         "initialLayout" : "center",
         "key" : "adjustHeight",

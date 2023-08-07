@@ -101,8 +101,8 @@ NSString * const kCellIden = @"cellReuse";
     }];
     self.foldState = [NSMutableDictionary dictionary];
     self.datalist = @{
-        @"位置": @[YYAMoveX,YYAOriginX, YYAMoveY,YYAOriginY, YYAMoveXY, YYAOrigin, YYACenter, YYAFrame],
-        @"宽高": @[YYASize,  YYAWidth, YYAHeight, YYAAdjustWidth, YYAAdjustHeight]
+        @"位置": @[YYAMoveX, YYAOriginX, YYAMoveY,YYAOriginY, YYAMoveXY, YYAOrigin, YYACenter, YYAFrame],
+        @"宽高": @[YYASize, YYAWidth, YYAAdjustWidth, YYAHeight, YYAAdjustHeight]
     };
     self.sectionList = @[YYABezier, YYAAlpha, YYAScale, YYARotateAngle, YYACountingNumberData, @"位置", @"宽高"];
     [self loadDataConfig];

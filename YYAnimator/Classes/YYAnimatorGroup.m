@@ -136,8 +136,6 @@
         if (animation.customizedValues.count > 0) {
             animation.values = [animation.customizedValues copy];
             animation.keyTimes = [animation.customizedKeyTimes copy];
-            self.animationGroup.removedOnCompletion = NO;
-            self.animationGroup.fillMode = kCAFillModeForwards;
         } else {
             [animation calculate];
         }
@@ -182,6 +180,16 @@
 - (BOOL)shouldRemoveOnCompletion
 {
     return self.animationGroup.isRemovedOnCompletion;
+}
+
+- (void)setShouldRemoveOnCompletion:(BOOL)shouldRemoveOnCompletion
+{
+    if (shouldRemoveOnCompletion) {
+        self.animationGroup.removedOnCompletion = YES;
+    } else {
+        self.animationGroup.removedOnCompletion = NO;
+        self.animationGroup.fillMode = kCAFillModeForwards;
+    }
 }
 
 - (NSArray<CAAnimation *> *)processedAnimation

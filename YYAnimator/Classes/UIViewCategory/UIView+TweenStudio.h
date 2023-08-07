@@ -93,9 +93,13 @@ UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYACountingNumberValue;
 UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYABezier;
 UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYABezierOption;
 
+UIKIT_EXTERN YYAnimatorParamKey const _Nonnull YYATime;
+
 #define YYAPoint(x,y) [NSValue valueWithCGPoint:CGPointMake(x, y)]
 #define YYASize(w,h) [NSValue valueWithCGSize:CGSizeMake(w, h)]
 #define YYARect(x,y,w,h) [NSValue valueWithCGRect:CGRectMake(x, y, w, h)]
+
+#define YYATime(paramKey) [NSString stringWithFormat:@"%@_time", paramKey]
 
 NS_ASSUME_NONNULL_BEGIN
 

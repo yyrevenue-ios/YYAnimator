@@ -29,6 +29,7 @@ typedef void (^YYAnimatorQueueCompleteBlock)(void);
 - (void)addAnimation:(YYKeyframeAnimation *)animation;
 
 - (void)updateCurrentTurnGroupAnimationsDuration:(NSTimeInterval)duration;
+- (NSTimeInterval)currentGroupAnimationDuration;
 
 - (void)addAnimationFunctionBlock:(YYKeyframeAnimationFunctionBlock)functionBlock;
 
@@ -65,6 +66,7 @@ typedef void (^YYAnimatorQueueCompleteBlock)(void);
 - (void)updateCurrentGroupSpringDamping:(CGFloat)dampingRatio initialVelocity:(CGFloat)initialVelocity options:(UIViewAnimationOptions)options;
 
 - (BOOL)shouldRemoveOnCompletion;
+- (void)setShouldRemoveOnCompletion:(BOOL)shouldRemove;
 
 @end
 

@@ -9,6 +9,7 @@
 #import <objc/runtime.h>
 #import "YYAnimator.h"
 
+YYAnimatorParamKey const YYATime = @"time";
 
 YYAnimatorParamKey const YYAMoveX = @"moveX";
 YYAnimatorParamKey const YYAMoveY = @"moveY";
@@ -107,7 +108,7 @@ static const char *kAnimatorTweenProduceKey;
     YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
         [wSelf.tweenAnimator createOneAnimationWithDuration:duration];
         [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
-        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params duration:duration]];
         [wSelf playAnimations];
         return wSelf;
     };
@@ -120,7 +121,7 @@ static const char *kAnimatorTweenProduceKey;
     YYTweenAnimatorBlock animator = ^(NSTimeInterval duration, NSDictionary<YYAnimatorParamKey, id> *params) {
         [wSelf.tweenAnimator createOneAnimationWithDuration:duration];
         [wSelf.tweenAnimator updateCurrentAnimationIsReverse:YES];
-        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params duration:duration]];
         [wSelf playAnimations];
         return wSelf;
     };
@@ -139,7 +140,7 @@ static const char *kAnimatorTweenProduceKey;
         wSelf.isProducing = YES;
         [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
         [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
-        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params duration:duration]];
         return wSelf;
     };
     return animator;
@@ -152,7 +153,7 @@ static const char *kAnimatorTweenProduceKey;
         [wSelf.tweenAnimator createNewGroup];
         [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
         [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
-        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params duration:duration]];
         return wSelf;
     };
     return animator;
@@ -166,7 +167,7 @@ static const char *kAnimatorTweenProduceKey;
         [wSelf.tweenAnimator updateCurrentAnimationDuration:duration];
         [wSelf.tweenAnimator updateCurrentAnimationIsReverse:NO];
         [wSelf.tweenAnimator updateCurrentAnimationDelay:delay];
-        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params]];
+        [wSelf.tweenAnimator addAnimationWithParams:[wSelf produceAnimationParams:params duration:duration]];
         return wSelf;
     };
     return animator;
@@ -179,35 +180,52 @@ static const char *kAnimatorTweenProduceKey;
 }
 
 
-- (YYAnimationParams *)produceAnimationParams:(NSDictionary<YYAnimatorParamKey, id> *)params
+- (YYAnimationParams *)produceAnimationParams:(NSDictionary<YYAnimatorParamKey, id> *)params duration:(NSTimeInterval)duration
 {
     YYAnimationParams *newParams = [[YYAnimationParams alloc] init];
-    if (params[YYAMoveX]) {
+    NSMutableDictionary *customizedDict = [NSMutableDictionary dictionaryWithCapacity:params.count];
+    
+    if ([params[YYAMoveX] isKindOfClass:NSNumber.class]) {
         newParams.moveX = [params[YYAMoveX] floatValue];
+    } else if ([self checkParamValid:params[YYAMoveX] targetClass:NSNumber.class]) {
+        customizedDict[YYAMoveX] = params[YYAMoveX];
+        [customizedDict setValue:params[YYATime(YYAMoveX)] forKey:YYATime(YYAMoveX)];
     }
-    if (params[YYAMoveY]) {
+    if ([params[YYAMoveY] isKindOfClass:NSNumber.class]) {
         newParams.moveY = [params[YYAMoveY] floatValue];
+    } else if ([self checkParamValid:params[YYAMoveY] targetClass:NSNumber.class]) {
+        customizedDict[YYAMoveY] = params[YYAMoveY];
+        [customizedDict setValue:params[YYATime(YYAMoveY)] forKey:YYATime(YYAMoveY)];
     }
     if (params[YYAMoveXY]) {
         id xyPoint = params[YYAMoveXY];
         if ([xyPoint isKindOfClass:NSValue.class]) {
             newParams.moveXY = [xyPoint CGPointValue];
-        } else {
-            NSAssert(NO,@"point must NSValue class");
+        } else if ([self checkParamValid:xyPoint targetClass:NSValue.class]) {
+            customizedDict[YYAMoveXY] = xyPoint;
+            [customizedDict setValue:params[YYATime(YYAMoveXY)] forKey:YYATime(YYAMoveXY)];
         }
     }
-    if (params[YYAWidth]) {
+    if ([params[YYAWidth] isKindOfClass:NSNumber.class]) {
         newParams.width = [params[YYAWidth] floatValue];
+    } else if ([self checkParamValid:params[YYAWidth] targetClass:NSNumber.class]) {
+        customizedDict[YYAWidth] = params[YYAWidth];
+        [customizedDict setValue:params[YYATime(YYAWidth)] forKey:YYATime(YYAWidth)];
     }
-    if (params[YYAHeight]) {
+    
+    if ([params[YYAHeight] isKindOfClass:NSNumber.class]) {
         newParams.height = [params[YYAHeight] floatValue];
+    } else if ([self checkParamValid:params[YYAHeight] targetClass:NSNumber.class]) {
+        customizedDict[YYAHeight] = params[YYAHeight];
+        [customizedDict setValue:params[YYATime(YYAHeight)] forKey:YYATime(YYAHeight)];
     }
     if (params[YYACenter]) {
         id centerPoint = params[YYACenter];
         if ([centerPoint isKindOfClass:NSValue.class]) {
             newParams.center = [centerPoint CGPointValue];
-        } else {
-            NSAssert(NO,@"point must NSValue class");
+        } else if ([self checkParamValid:centerPoint targetClass:NSValue.class]) {
+            customizedDict[YYACenter] = centerPoint;
+            [customizedDict setValue:params[YYATime(YYACenter)] forKey:YYATime(YYACenter)];
         }
     }
     
@@ -215,8 +233,9 @@ static const char *kAnimatorTweenProduceKey;
         id size = params[YYASize];
         if ([size isKindOfClass:NSValue.class]) {
             newParams.size = [size CGSizeValue];
-        } else {
-            NSAssert(NO,@"size must NSValue class");
+        } else if ([self checkParamValid:size targetClass:NSValue.class]) {
+            customizedDict[YYASize] = size;
+            [customizedDict setValue:params[YYATime(YYASize)] forKey:YYATime(YYASize)];
         }
     }
     
@@ -224,17 +243,24 @@ static const char *kAnimatorTweenProduceKey;
         id originPoint = params[YYAOrigin];
         if ([originPoint isKindOfClass:NSValue.class]) {
             newParams.origin = [originPoint CGPointValue];
-        } else {
-            NSAssert(NO,@"point must NSValue class");
+        } else if ([self checkParamValid:originPoint targetClass:NSValue.class]) {
+            customizedDict[YYAOrigin] = originPoint;
+            [customizedDict setValue:params[YYATime(YYAOrigin)] forKey:YYATime(YYAOrigin)];
         }
     }
     
-    if (params[YYAOriginX]) {
+    if ([params[YYAOriginX] isKindOfClass:NSNumber.class]) {
         newParams.originX = [params[YYAOriginX] floatValue];
+    } else if ([self checkParamValid:params[YYAOriginX] targetClass:NSNumber.class]) {
+        customizedDict[YYAOriginX] = params[YYAOriginX];
+        [customizedDict setValue:params[YYATime(YYAOriginX)] forKey:YYATime(YYAOriginX)];
     }
     
-    if (params[YYAOriginY]) {
+    if ([params[YYAOriginY] isKindOfClass:NSNumber.class]) {
         newParams.originY = [params[YYAOriginY] floatValue];
+    } else if ([self checkParamValid:params[YYAOriginY] targetClass:NSNumber.class]) {
+        customizedDict[YYAOriginY] = params[YYAOriginY];
+        [customizedDict setValue:params[YYATime(YYAOriginY)] forKey:YYATime(YYAOriginY)];
     }
     
     if (params[YYAFrame]) {
@@ -242,25 +268,45 @@ static const char *kAnimatorTweenProduceKey;
         if ([frame isKindOfClass:NSValue.class]) {
             newParams.frame = [frame CGRectValue];
         } else {
-            NSAssert(NO,@"frame must NSValue class");
+            NSAssert(NO, @"invalid frame: %@, should be NSValue of CGRect", frame);
         }
     }
     
-    if (params[YYAAdjustWidth]) {
+    if ([params[YYAAdjustWidth] isKindOfClass:NSNumber.class]) {
         newParams.adjustWidth = [params[YYAAdjustWidth] floatValue];
+    } else if ([self checkParamValid:params[YYAAdjustWidth] targetClass:NSNumber.class]) {
+        customizedDict[YYAAdjustWidth] = params[YYAAdjustWidth];
+        [customizedDict setValue:params[YYATime(YYAAdjustWidth)] forKey:YYATime(YYAAdjustWidth)];
     }
-    if (params[YYAAdjustHeight]) {
+    
+    if ([params[YYAAdjustHeight] isKindOfClass:NSNumber.class]) {
         newParams.adjustHeight = [params[YYAAdjustHeight] floatValue];
+    } else if ([self checkParamValid:params[YYAAdjustHeight] targetClass:NSNumber.class]) {
+        customizedDict[YYAAdjustHeight] = params[YYAAdjustHeight];
+        [customizedDict setValue:params[YYATime(YYAAdjustHeight)] forKey:YYATime(YYAAdjustHeight)];
     }
-    if (params[YYARotateAngle]) {
+    
+    if ([params[YYARotateAngle] isKindOfClass:NSNumber.class]) {
         newParams.rotateAngle = [params[YYARotateAngle] floatValue];
+    } else if ([self checkParamValid:params[YYARotateAngle] targetClass:NSNumber.class]) {
+        customizedDict[YYARotateAngle] = params[YYARotateAngle];
+        [customizedDict setValue:params[YYATime(YYARotateAngle)] forKey:YYATime(YYARotateAngle)];
     }
-    if (params[YYAAlpha]) {
+    
+    if ([params[YYAAlpha] isKindOfClass:NSNumber.class]) {
         newParams.alpha = [params[YYAAlpha] floatValue];
+    } else if ([self checkParamValid:params[YYAAlpha] targetClass:NSNumber.class]) {
+        customizedDict[YYAAlpha] = params[YYAAlpha];
+        [customizedDict setValue:params[YYATime(YYAAlpha)] forKey:YYATime(YYAAlpha)];
     }
-    if (params[YYAScale]) {
+    
+    if ([params[YYAScale] isKindOfClass:NSNumber.class]) {
         newParams.scale = [params[YYAScale] floatValue];
+    } else if ([self checkParamValid:params[YYAScale] targetClass:NSNumber.class]) {
+        customizedDict[YYAScale] = params[YYAScale];
+        [customizedDict setValue:params[YYATime(YYAScale)] forKey:YYATime(YYAScale)];
     }
+    
     if (params[YYACustomizedData]) {
         newParams.customizedData = params[YYACustomizedData];
     }
@@ -354,19 +400,27 @@ static const char *kAnimatorTweenProduceKey;
         }
         newParams.bezier = [YYAnimationParams bezierFromParam:params[YYABezier] option:newParams.bezierOption];
     }
+    if (params[YYATime]) {
+        customizedDict[YYATime] = params[YYATime];
+    }
+    newParams.customizedParamData = customizedDict;
     return newParams;
 }
 
-- (CGPoint)pointFromParam:(id)param
+- (BOOL)checkParamValid:(id)object targetClass:(Class)cls
 {
-    if ([param isKindOfClass:NSValue.class]) {
-        return [param CGPointValue];
-    } else if ([param isKindOfClass:NSString.class]) {
-        NSString *string = param;
-        NSArray *arr = [string componentsSeparatedByString:@","];
-        return CGPointMake([arr.firstObject floatValue], [arr.lastObject floatValue]);
+    if (!object) {
+        return NO;
     }
-    return CGPointZero;
+    BOOL isValid = NO;
+    if ([object isKindOfClass:NSArray.class]) {
+        isValid = [[object firstObject] isKindOfClass:cls];
+    }
+    if ([object isKindOfClass:NSString.class]) {
+        isValid = [(NSString *)object containsString:@","];
+    }
+    NSAssert(isValid, @"invalid param %@", object);
+    return isValid;
 }
 
 @end

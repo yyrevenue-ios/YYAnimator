@@ -6,6 +6,7 @@
 //
 
 #import "YYAnimationParams.h"
+#import "UIView+TweenStudio.h"
 
 @implementation YYAnimatorCustomizedData
 
@@ -52,11 +53,15 @@
 {
     self = [super init];
     if (self) {
+        self.moveX = CGFLOAT_MAX;
+        self.moveY = CGFLOAT_MAX;
         self.moveXY = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
         self.origin = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
         self.size = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX);
         self.center = CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX);
         self.frame = CGRectMake(CGFLOAT_MAX, CGFLOAT_MAX, CGFLOAT_MAX, CGFLOAT_MAX);
+        self.width = CGFLOAT_MAX;
+        self.height = CGFLOAT_MAX;
         self.alpha = -1.0;
         self.scale = -1.0;
         self.rotateAngle = CGFLOAT_MAX;
@@ -152,6 +157,114 @@
     return nil;;
 }
 
++ (NSArray *)customizedTimesForKey:(NSString *)key param:(NSDictionary *)customizedParamData animDuration:(NSTimeInterval)duration reverse:(BOOL)reverse
+{
+    NSString *timeKey = YYATime(key);
+    NSArray *resultTimes;
+    if ([customizedParamData objectForKey:timeKey]) {
+        resultTimes = [YYAnimationParams numValuesFromParam:[customizedParamData objectForKey:timeKey] offset:0 reverse:NO];
+    }
+    if (!resultTimes && [customizedParamData objectForKey:YYATime]) {
+        resultTimes = [YYAnimationParams numValuesFromParam:[customizedParamData objectForKey:YYATime] offset:0 reverse:NO];
+    }
+    
+    if (resultTimes) {
+        __block BOOL isPercent = YES;
+        [resultTimes enumerateObjectsUsingBlock:^(NSNumber *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj floatValue] > 1) {
+                isPercent = NO;
+                *stop = YES;
+            }
+        }];
+        NSMutableArray *keyTimes = [NSMutableArray arrayWithCapacity:resultTimes.count];
+        for (NSNumber *time in resultTimes) {
+            CGFloat tmp = (isPercent || duration == 0) ? [time floatValue] : ([time floatValue] / duration);
+            if (reverse) {
+                [keyTimes insertObject:@(1 - tmp) atIndex:0];
+            } else {
+                [keyTimes addObject:@(tmp)];
+            }
+        }
+        return keyTimes;
+    }
+    return nil;
+}
+
++ (NSArray *)numValuesFromParam:(id)object offset:(CGFloat)offset reverse:(BOOL)reverse
+{
+    if (!object) {
+        return nil;
+    }
+    NSMutableArray *numValues = [NSMutableArray array];
+    if ([object isKindOfClass:NSString.class]) {
+        object = [(NSString *)object componentsSeparatedByString:@","];
+    }
+    if ([object isKindOfClass:NSArray.class]) {
+        NSArray *values = (NSArray *)object;
+        for (int index = 0; index < values.count; index ++) {
+            if ([values[index] respondsToSelector:@selector(floatValue)]) {
+                if (reverse) {
+                    [numValues insertObject:@([values[index] floatValue] + offset) atIndex:0];
+                } else {
+                    [numValues addObject:@([values[index] floatValue] + offset)];
+                }
+            }
+        }
+    }
+    return numValues.count > 1 ? numValues : nil;
+}
+
++ (NSArray *)pointValuesFromParam:(id)object offset:(CGPoint)offsetPoint reverse:(BOOL)reverse
+{
+    if (!object) {
+        return nil;
+    }
+    NSMutableArray *numValues = [NSMutableArray array];
+    if ([object isKindOfClass:NSString.class]) {
+        object = [(NSString *)object componentsSeparatedByString:@";"];
+    }
+    if ([object isKindOfClass:NSArray.class]) {
+        NSArray *values = (NSArray *)object;
+        for (int index = 0; index < values.count; index ++) {
+            CGPoint point = [self pointFromParam:values[index]];
+            point.x += offsetPoint.x;
+            point.y += offsetPoint.y;
+            if (reverse) {
+                [numValues insertObject:[NSValue valueWithCGPoint:point] atIndex:0];
+            } else {
+                [numValues addObject:[NSValue valueWithCGPoint:point]];
+            }
+        }
+    }
+    return numValues.count > 1 ? numValues : nil;
+}
+
++ (NSArray *)sizeValuesFromParam:(id)object offset:(CGSize)offsetSize reverse:(BOOL)reverse
+{
+    if (!object) {
+        return nil;
+    }
+    NSMutableArray *numValues = [NSMutableArray array];
+    if ([object isKindOfClass:NSString.class]) {
+        object = [(NSString *)object componentsSeparatedByString:@";"];
+    }
+    if ([object isKindOfClass:NSArray.class]) {
+        NSArray *values = (NSArray *)object;
+        for (int index = 0; index < values.count; index ++) {
+            CGSize size = [self sizeFromParam:values[index]];
+            size.width += offsetSize.width;
+            size.height += offsetSize.height;
+            if (reverse) {
+                [numValues insertObject:[NSValue valueWithCGSize:size] atIndex:0];
+            } else {
+                [numValues addObject:[NSValue valueWithCGSize:size]];
+            }
+        }
+    }
+    return numValues.count > 1 ? numValues : nil;
+}
+
+
 + (CGPoint)pointFromParam:(id)object
 {
     if ([object isKindOfClass:NSValue.class]) {
@@ -162,6 +275,19 @@
         return CGPointMake([arr.firstObject floatValue], [arr.lastObject floatValue]);
     }
     return CGPointZero;
+}
+
+
++ (CGSize)sizeFromParam:(id)object
+{
+    if ([object isKindOfClass:NSValue.class]) {
+        return [object CGSizeValue];
+    } else if ([object isKindOfClass:NSString.class]) {
+        NSString *string = object;
+        NSArray *arr = [string componentsSeparatedByString:@","];
+        return CGSizeMake([arr.firstObject floatValue], [arr.lastObject floatValue]);
+    }
+    return CGSizeZero;
 }
 
 

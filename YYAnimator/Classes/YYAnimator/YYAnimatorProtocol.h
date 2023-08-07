@@ -10,7 +10,6 @@
 #import "YYAnimatorGroup.h"
 #import "YYAnimationParams.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @protocol YYAnimatorProtocol <NSObject>
 
@@ -27,54 +26,56 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addAnimationCompletionAction:(YYAnimationCompletionAction)action;
 - (void)addAnimationConstraintAction:(YYAnimationCompletionAction)action;
 
-- (void)addMoveXAnimationToQueue:(YYAnimatorQueue *)queue withX:(float)x reverse:(BOOL)reverse;
+- (void)addMoveXAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)moveXAnimationCompletionWithX:(float)x reverse:(BOOL)reverse;
 
-- (void)addMoveYAnimationToQueue:(YYAnimatorQueue *)queue withY:(float)y reverse:(BOOL)reverse;
+- (void)addMoveYAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)moveYAnimationCompletionWithY:(float)y reverse:(BOOL)reverse;
 
-- (void)addMoveXYAnimationToQueue:(YYAnimatorQueue *)queue withPoint:(CGPoint)point reverse:(BOOL)reverse;
+- (void)addMoveXYAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)moveXYAnimationCompletionWithPoint:(CGPoint)point reverse:(BOOL)reverse;
 
-- (void)addOriginXAnimationToQueue:(YYAnimatorQueue *)queue withX:(CGFloat)originX reverse:(BOOL)reverse;
+- (void)addOriginXAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)originXAnimationCompletionWithX:(CGFloat)originX reverse:(BOOL)reverse;
 
-- (void)addOriginYAnimationToQueue:(YYAnimatorQueue *)queue WithY:(CGFloat)originY reverse:(BOOL)reverse;
+- (void)addOriginYAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)originYAnimationCompletionWithY:(CGFloat)originY reverse:(BOOL)reverse;
 
-- (void)addOriginAnimationToQueue:(YYAnimatorQueue *)queue withPoint:(CGPoint)point reverse:(BOOL)reverse;
+- (void)addOriginAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)originAnimationCompletionWithPoint:(CGPoint)point reverse:(BOOL)reverse;
 
-- (void)addSizeAnimationToQueue:(YYAnimatorQueue *)queue withSize:(CGSize)size reverse:(BOOL)reverse;
+- (void)addSizeAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)sizeAnimationCompletionWithSize:(CGSize)size reverse:(BOOL)reverse;
 
-- (void)addCenterAnimationToQueue:(YYAnimatorQueue *)queue withPoint:(CGPoint)point reverse:(BOOL)reverse;
+- (void)addCenterAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)centerAnimationCompletionWithPoint:(CGPoint)point reverse:(BOOL)reverse;
 
 - (void)addCustomizedPropertyAnimationToQueue:(YYAnimatorQueue *)queue withCustomData:(YYAnimatorCustomizedData *)customData;
 
-- (void)addFrameAnimationToQueue:(YYAnimatorQueue *)queue withFrame:(CGRect)frame reverse:(BOOL)reverse;
+- (void)addFrameAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)frameAnimationCompletionWithFrame:(CGRect)frame reverse:(BOOL)reverse;
 
-- (void)addAdjustWidthAnimationToQueue:(YYAnimatorQueue *)queue withWidth:(CGFloat)width reverse:(BOOL)reverse;
+- (void)addAdjustWidthAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)adjustWidthAnimationCompletionWithWidth:(CGFloat)width reverse:(BOOL)reverse;
 
+- (void)addChangeWidthAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)addChangeWidthAnimationToQueue:(YYAnimatorQueue *)queue withWidth:(CGFloat)width reverse:(BOOL)reverse;
 - (void)changeWidthAnimationCompletionWithWidth:(CGFloat)width reverse:(BOOL)reverse;
 
+- (void)addChangeHeightAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)addChangeHeightAnimationToQueue:(YYAnimatorQueue *)queue withHeight:(CGFloat)height reverse:(BOOL)reverse;
 - (void)changeHeightAnimationCompletionWithHeight:(CGFloat)height reverse:(BOOL)reverse;
 
-- (void)addAdjustHeightAnimationToQueue:(YYAnimatorQueue *)queue withHeight:(CGFloat)height reverse:(BOOL)reverse;
+- (void)addAdjustHeightAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)adjustHeightAnimationCompletionWithHeight:(CGFloat)height reverse:(BOOL)reverse;
 
-- (void)addRotationZAnimationToQueue:(YYAnimatorQueue *)queue withAngle:(float)angle reverse:(BOOL)reverse;
+- (void)addRotationZAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)rotationZAnimationWithAngle:(float)angle reverse:(BOOL)reverse;
 
-- (void)addAlphaAnimationToQueue:(YYAnimatorQueue *)queue withAlpha:(CGFloat)alpha reverse:(BOOL)reverse;
+- (void)addAlphaAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)alphaAnimationCompletionWithAlpha:(CGFloat)alpha reverse:(BOOL)reverse;
 
-- (void)addScaleAnimationToQueue:(YYAnimatorQueue *)queue withScale:(CGFloat)scale reverse:(BOOL)reverse;
+- (void)addScaleAnimationToQueue:(YYAnimatorQueue *)queue withParam:(YYAnimationParams *)param reverse:(BOOL)reverse;
 - (void)scaleAnimationCompletionWithScale:(CGFloat)scale reverse:(BOOL)reverse;
 
 - (void)changeHeightConstraint:(CGFloat)height reverse:(BOOL)reverse updateLayout:(BOOL)updateLayout;
@@ -128,4 +129,3 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END

@@ -53,6 +53,11 @@
     [self.animatorGroups lastObject].animationDuration = duration;
 }
 
+- (NSTimeInterval)currentGroupAnimationDuration
+{
+    return [self.animatorGroups lastObject].animationDuration;
+}
+
 // 执行动画，所以从左到右，取firstObject
 - (void)animateWithAnimationKey:(NSString *)animationKey
 {
@@ -132,6 +137,12 @@
         return group.shouldRemoveOnCompletion;
     }
     return YES;
+}
+
+- (void)setShouldRemoveOnCompletion:(BOOL)shouldRemove
+{
+    YYAnimatorGroup *group = [self.animatorGroups firstObject];
+    group.shouldRemoveOnCompletion = shouldRemove;
 }
 
 - (NSString *)animationKey

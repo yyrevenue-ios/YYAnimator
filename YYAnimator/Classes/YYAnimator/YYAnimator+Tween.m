@@ -7,6 +7,7 @@
 
 #import "YYAnimator+Tween.h"
 #import "YYAnimatorQueue.h"
+#import "UIView+TweenStudio.h"
 
 @implementation YYAnimator (Tween)
 
@@ -83,73 +84,41 @@
 
 - (void)_prepareAnimationWithParams:(YYAnimationParams *)params forQueue:(YYAnimatorQueue *)animatorQueue reverse:(BOOL)reverse
 {
-    if (params.moveX != 0) {
-        [self addMoveXAnimationToQueue:animatorQueue withX:params.moveX reverse:reverse];
-    }
+    [self addMoveXAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.moveY != 0) {
-        [self addMoveYAnimationToQueue:animatorQueue withY:params.moveY reverse:reverse];
-    }
+    [self addMoveYAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if ([params isMoveXYValid]) {
-        [self addMoveXYAnimationToQueue:animatorQueue withPoint:params.moveXY reverse:reverse];
-    }
+    [self addMoveXYAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.originX != CGFLOAT_MAX) {
-        [self addOriginXAnimationToQueue:animatorQueue withX:params.originX reverse:reverse];
-    }
+    [self addOriginXAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.originY != CGFLOAT_MAX) {
-        [self addOriginYAnimationToQueue:animatorQueue WithY:params.originY reverse:reverse];
-    }
+    [self addOriginYAnimationToQueue:animatorQueue withParam:params reverse:reverse];
+
+    [self addOriginAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if ([params isOriginValid]) {
-        [self addOriginAnimationToQueue:animatorQueue withPoint:params.origin reverse:reverse];
-    }
+    [self addSizeAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if ([params isSizeValid]) {
-        [self addSizeAnimationToQueue:animatorQueue withSize:params.size reverse:reverse];
-    }
-    
-    if ([params isCenterValid]) {
-        [self addCenterAnimationToQueue:animatorQueue withPoint:params.center reverse:reverse];
-    }
+    [self addCenterAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
     if (params.customizedData) {
         [self addCustomizedPropertyAnimationToQueue:animatorQueue withCustomData:params.customizedData];
     }
     
-    if ([params isFrameValid]) {
-        [self addFrameAnimationToQueue:animatorQueue withFrame:params.frame reverse:reverse];
-    }
+    [self addFrameAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.adjustWidth != 0) {
-        [self addAdjustWidthAnimationToQueue:animatorQueue withWidth:params.adjustWidth reverse:reverse];
-    }
+    [self addAdjustWidthAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.width > 0) {
-        [self addChangeWidthAnimationToQueue:animatorQueue withWidth:params.width reverse:reverse];
-    }
+    [self addChangeWidthAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.height > 0) {
-        [self addChangeHeightAnimationToQueue:animatorQueue withHeight:params.height reverse:reverse];
-    }
+    [self addChangeHeightAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.adjustHeight != 0) {
-        [self addAdjustHeightAnimationToQueue:animatorQueue withHeight:params.adjustHeight reverse:reverse];
-    }
+    [self addAdjustHeightAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.rotateAngle != CGFLOAT_MAX) {
-        [self addRotationZAnimationToQueue:animatorQueue withAngle:params.rotateAngle reverse:reverse];
-    }
+    [self addRotationZAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.alpha >= 0) {
-        [self addAlphaAnimationToQueue:animatorQueue withAlpha:params.alpha reverse:reverse];
-    }
+    [self addAlphaAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
-    if (params.scale >= 0) {
-        [self addScaleAnimationToQueue:animatorQueue withScale:params.scale reverse:reverse];
-    }
+    [self addScaleAnimationToQueue:animatorQueue withParam:params reverse:reverse];
     
     if (params.widthConstraint > 0) {
         [self addChangeWidthAnimationToQueue:animatorQueue withWidth:params.widthConstraint reverse:reverse];
@@ -206,11 +175,11 @@
 
 - (void)_prepareCompletionWithParams:(YYAnimationParams *)params reverse:(BOOL)reverse
 {
-    if (params.moveX != 0) {
+    if (params.moveX != CGFLOAT_MAX && params.moveX != 0) {
         [self moveXAnimationCompletionWithX:params.moveX reverse:reverse];
     }
     
-    if (params.moveY != 0) {
+    if (params.moveY != CGFLOAT_MAX && params.moveY != 0) {
         [self moveYAnimationCompletionWithY:params.moveY reverse:reverse];
     }
     
@@ -242,11 +211,11 @@
         [self frameAnimationCompletionWithFrame:params.frame reverse:reverse];
     }
     
-    if (params.width > 0) {
+    if (params.width >= 0 && params.width != CGFLOAT_MAX) {
         [self changeWidthAnimationCompletionWithWidth:params.width reverse:reverse];
     }
     
-    if (params.height > 0) {
+    if (params.height >= 0 && params.height != CGFLOAT_MAX) {
         [self changeHeightAnimationCompletionWithHeight:params.height reverse:reverse];
     }
     

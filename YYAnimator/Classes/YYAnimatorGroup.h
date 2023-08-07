@@ -42,7 +42,7 @@ typedef void (^YYAnimationCompletionAction)(__weak YYAnimator *animator, BOOL re
 @property (nonatomic, copy) YYAnimatorGroupBlock preGroupBlock;
 @property (nonatomic, copy) YYAnimatorGroupBlock postGroupBlock;
 @property (nonatomic, copy) YYAnimationAssembleAction anchorAssembleAction;
-@property (nonatomic, assign, readonly) BOOL shouldRemoveOnCompletion;
+@property (nonatomic, assign) BOOL shouldRemoveOnCompletion;
 
 // 弹簧系数
 @property (nonatomic, strong) YYSpringParams *springParams;

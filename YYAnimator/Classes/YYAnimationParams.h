@@ -186,6 +186,8 @@ typedef NS_ENUM(NSInteger, YYBezierOption) {
 
 @property (nonatomic, assign) YYBezierOption bezierOption;
 
+@property (nonatomic, strong) NSDictionary *customizedParamData;
+
 - (BOOL)isMoveXYValid;
 
 - (BOOL)isOriginValid;
@@ -197,7 +199,16 @@ typedef NS_ENUM(NSInteger, YYBezierOption) {
 - (BOOL)isFrameValid;
 
 + (UIBezierPath *)bezierFromParam:(id)object option:(YYBezierOption)option;
+
++ (NSArray *)customizedTimesForKey:(NSString *)key param:(NSDictionary *)customizedParamData animDuration:(NSTimeInterval)duration reverse:(BOOL)reverse;
++ (NSArray *)numValuesFromParam:(id)object offset:(CGFloat)offset reverse:(BOOL)reverse;
+
++ (NSArray *)pointValuesFromParam:(id)object offset:(CGPoint)offsetPoint reverse:(BOOL)reverse;
++ (NSArray *)sizeValuesFromParam:(id)object offset:(CGSize)offsetSize reverse:(BOOL)reverse;
+
 + (CGPoint)pointFromParam:(id)object;
++ (CGSize)sizeFromParam:(id)object;
+
 
 @end
 

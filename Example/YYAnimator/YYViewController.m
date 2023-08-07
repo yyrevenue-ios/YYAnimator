@@ -103,11 +103,15 @@
 }
 
 - (IBAction)swiftBtnClicked:(id)sender {
-//    YYTestViewController *vc = [[YYTestViewController alloc] init];
-    YYEntranceListController *vc = [[YYEntranceListController alloc] init];
+    YYTestViewController *vc = [[YYTestViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 //    [self.view updateConstraintsIfNeeded];
     
+}
+
+- (IBAction)demoListBtnClicked:(id)sender {
+    YYEntranceListController *vc = [[YYEntranceListController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

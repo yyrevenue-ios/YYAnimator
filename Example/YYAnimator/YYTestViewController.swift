@@ -13,16 +13,12 @@ class YYTestViewController: UIViewController {
     
     var viewAnimatorBtn: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var animationView = UIView(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
-    var label = UILabel(frame: CGRect(x: 160, y: 500, width: 70, height: 70))
     
     override func viewDidLoad() {
         self.view.backgroundColor = UIColor.white
         self.configBtn()
         animationView.backgroundColor = UIColor.yellow;
         animationView.frame = CGRect(x: 160, y: 320, width: 70, height: 70)
-         label.text = "3"
-         label.backgroundColor = UIColor.red;
-         self.view.addSubview(label)
         self.view.addSubview(animationView)
     }
     
@@ -37,19 +33,11 @@ class YYTestViewController: UIViewController {
     
     @objc
     func viewAnimatorBtnDidClicked() {
-//        animationView.yya.to(2, [.center: CGPoint(x: 300, y: 300), .scale: 2])
-//        animationView.yya.to(2, [.repeats:1, .delay:3, .center: CGPoint(x: 300, y: 300), .scale: 2])
-         animationView.yya.from(1, [.scale : 3])
-         
-         let data = YYAnimatorCountingNumberData()
-         data.fromValue = 0
-         data.toValue = 100
-         let showNumLength = 3
-         data.numberFormatBlock = {(numberValue: Double) -> String in
-              let value = ceilf(powf(10, Float(showNumLength)) * Float(numberValue))
-              return String(format: "%0.3f", value / powf(10, Float(showNumLength)))
-         }
-         label.yya.to(10, [.countingNumberData : data])
+//         animationView.yya.to(2, [.center: CGPoint(x: 300, y: 300), .scale: 2])
+//         animationView.yya.to(1, [.scale: 3])
+//         animationView.yya.thenAfter(1, 3, [.rotateAngle: 40])
+
+         animationView.yya.to(3, [.scale : [1, 3, 1.0, 2.2, 0.5]])
     }
 }
 

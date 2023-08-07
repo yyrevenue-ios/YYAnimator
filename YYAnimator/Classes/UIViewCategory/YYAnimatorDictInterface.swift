@@ -24,14 +24,30 @@ extension YYAnimatorExtension {
         self.addAnimation(duration, animationParams)
     }
     
+    public mutating func then(_ duration: Double, _ params: [YYAnimator.ParamKey: Any]) {
+        let animationParams = self.produceAnimationParams(params)
+        self.addNextAnimation(duration, 0, animationParams)
+    }
+    
+    public mutating func thenAfter(_ duration: Double, _ delay: Double, _ params: [YYAnimator.ParamKey: Any]) {
+        let animationParams = self.produceAnimationParams(params)
+        self.addNextAnimation(duration, delay, animationParams)
+    }
+    
     private func produceAnimationParams(_ params: [YYAnimator.ParamKey: Any]) -> YYAnimationParams {
         let animationParams = YYAnimationParams()
+        var customizedDict = [String: Any]()
+        customizedDict[YYAnimator.ParamKey.time.rawValue] = params[YYAnimator.ParamKey.time]
         
         switch params[.moveX] {
         case let intMoveX as Int:
             animationParams.moveX = Double(intMoveX)
         case let doubleMoveX as Double:
             animationParams.moveX = doubleMoveX
+        case let doubleMoveX as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.moveX.rawValue] = doubleMoveX
+        case let doubleMoveX as String:
+            customizedDict[YYAnimator.ParamKey.moveX.rawValue] = doubleMoveX
         default:
             ()
         }
@@ -41,6 +57,10 @@ extension YYAnimatorExtension {
             animationParams.moveY = Double(intMoveY)
         case let doubleMoveY as Double:
             animationParams.moveY = doubleMoveY
+        case let doubleMoveY as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.moveY.rawValue] = doubleMoveY
+        case let doubleMoveY as String:
+            customizedDict[YYAnimator.ParamKey.moveY.rawValue] = doubleMoveY
         default:
             ()
         }
@@ -48,12 +68,22 @@ extension YYAnimatorExtension {
         if let moveXY = params[.moveXY] as? CGPoint {
             animationParams.moveXY = moveXY
         }
+        if let moveXY = params[.moveXY] as? Array<Any> {
+            customizedDict[YYAnimator.ParamKey.moveXY.rawValue] = moveXY
+        }
+        if let moveXY = params[.moveXY] as? String {
+            customizedDict[YYAnimator.ParamKey.moveXY.rawValue] = moveXY
+        }
         
         switch params[.originX] {
         case let intOriginX as Int:
             animationParams.originX = Double(intOriginX)
         case let doubleOriginX as Double:
             animationParams.originX = doubleOriginX
+        case let doubleOriginX as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.originX.rawValue] = doubleOriginX
+        case let doubleOriginX as String:
+            customizedDict[YYAnimator.ParamKey.originX.rawValue] = doubleOriginX
         default:
             ()
         }
@@ -63,6 +93,10 @@ extension YYAnimatorExtension {
             animationParams.originY = Double(intOriginY)
         case let doubleOriginY as Double:
             animationParams.originY = doubleOriginY
+        case let doubleOriginY as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.originY.rawValue] = doubleOriginY
+        case let doubleOriginY as String:
+            customizedDict[YYAnimator.ParamKey.originX.rawValue] = doubleOriginY
         default:
             ()
         }
@@ -70,13 +104,31 @@ extension YYAnimatorExtension {
         if let origin = params[.origin] as? CGPoint {
             animationParams.origin = origin
         }
+        if let origin = params[.origin] as? Array<Any> {
+            customizedDict[YYAnimator.ParamKey.origin.rawValue] = origin
+        }
+        if let origin = params[.origin] as? String {
+            customizedDict[YYAnimator.ParamKey.origin.rawValue] = origin
+        }
 
         if let size = params[.size] as? CGSize {
             animationParams.size = size
         }
+        if let size = params[.size] as? Array<Any> {
+            customizedDict[YYAnimator.ParamKey.size.rawValue] = size
+        }
+        if let size = params[.size] as? String {
+            customizedDict[YYAnimator.ParamKey.size.rawValue] = size
+        }
         
         if let center = params[.center] as? CGPoint {
             animationParams.center = center
+        }
+        if let center = params[.center] as? Array<Any> {
+            customizedDict[YYAnimator.ParamKey.center.rawValue] = center
+        }
+        if let center = params[.center] as? String {
+            customizedDict[YYAnimator.ParamKey.center.rawValue] = center
         }
         
         if let customizedData = params[.customizedData] as? YYAnimatorCustomizedData {
@@ -92,6 +144,10 @@ extension YYAnimatorExtension {
             animationParams.rotateAngle = Double(intAngle)
         case let doubleAngle as Double:
             animationParams.rotateAngle = doubleAngle
+        case let doubleAngle as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.rotateAngle.rawValue] = doubleAngle
+        case let doubleAngle as String:
+            customizedDict[YYAnimator.ParamKey.rotateAngle.rawValue] = doubleAngle
         default:
             ()
         }
@@ -101,6 +157,10 @@ extension YYAnimatorExtension {
             animationParams.alpha = Double(intAlpha)
         case let doubleAlpha as Double:
             animationParams.alpha = doubleAlpha
+        case let doubleAlpha as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.alpha.rawValue] = doubleAlpha
+        case let doubleAlpha as String:
+            customizedDict[YYAnimator.ParamKey.alpha.rawValue] = doubleAlpha
         default:
             ()
         }
@@ -110,6 +170,10 @@ extension YYAnimatorExtension {
             animationParams.scale = Double(intScale)
         case let doubleScale as Double:
             animationParams.scale = doubleScale
+        case let doubleScale as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.scale.rawValue] = doubleScale
+        case let doubleScale as String:
+            customizedDict[YYAnimator.ParamKey.scale.rawValue] = doubleScale
         default:
             ()
         }
@@ -132,6 +196,10 @@ extension YYAnimatorExtension {
             animationParams.width = Double(intWidth)
         case let doubleWidth as Double:
             animationParams.width = doubleWidth
+        case let doubleWidth as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.width.rawValue] = doubleWidth
+        case let doubleWidth as String:
+            customizedDict[YYAnimator.ParamKey.width.rawValue] = doubleWidth
         default:
             ()
         }
@@ -141,6 +209,23 @@ extension YYAnimatorExtension {
             animationParams.adjustWidth = Double(intWidth)
         case let doubleWidth as Double:
             animationParams.adjustWidth = doubleWidth
+        case let doubleWidth as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.addWidth.rawValue] = doubleWidth
+        case let doubleWidth as String:
+            customizedDict[YYAnimator.ParamKey.addWidth.rawValue] = doubleWidth
+        default:
+            ()
+        }
+        
+        switch params[.height] {
+        case let intHeight as Int:
+            animationParams.height = Double(intHeight)
+        case let doubleHeight as Double:
+            animationParams.height = doubleHeight
+        case let doubleHeight as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.height.rawValue] = doubleHeight
+        case let doubleHeight as String:
+            customizedDict[YYAnimator.ParamKey.height.rawValue] = doubleHeight
         default:
             ()
         }
@@ -150,6 +235,10 @@ extension YYAnimatorExtension {
             animationParams.adjustHeight = Double(intHeight)
         case let doubleHeight as Double:
             animationParams.adjustHeight = doubleHeight
+        case let doubleHeight as Array<Any>:
+            customizedDict[YYAnimator.ParamKey.addHeight.rawValue] = doubleHeight
+        case let doubleHeight as String:
+            customizedDict[YYAnimator.ParamKey.addHeight.rawValue] = doubleHeight
         default:
             ()
         }
@@ -294,7 +383,9 @@ extension YYAnimatorExtension {
         default:
             ()
         }
-
+        if customizedDict.count > 0 {
+            animationParams.customizedParamData = customizedDict
+        }
         return animationParams
     }
     
@@ -311,7 +402,7 @@ extension YYAnimator {
 }
 
 extension YYAnimator.ParamKey {
-    
+    public static let time: YYAnimator.ParamKey = .init(rawValue: "time")
     // 水平位移
     public static let moveX: YYAnimator.ParamKey = .init(rawValue: "moveX")
     // 垂直位移
@@ -344,6 +435,8 @@ extension YYAnimator.ParamKey {
     public static let delay: YYAnimator.ParamKey = .init(rawValue: "delay")
     // 宽度
     public static let width: YYAnimator.ParamKey = .init(rawValue: "width")
+    // 高度
+    public static let height: YYAnimator.ParamKey = .init(rawValue: "height")
     // 增加或减少宽度
     public static let addWidth: YYAnimator.ParamKey = .init(rawValue: "addWidth")
     // 增加或减少高度

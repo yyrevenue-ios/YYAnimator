@@ -11,28 +11,38 @@ public struct YYAnimatorExtension {
     private let view: UIView
     var animator: YYAnimator
     var isProducing: Bool
-    var isReverse: Bool
     
     public init(_ view: UIView) {
         self.view = view
         self.isProducing = false
-        self.isReverse = false
         self.animator = YYAnimator(view: view)
     }
     
     public mutating func addAnimation(_ duration: Double, _ params: YYAnimationParams) {
         if self.isProducing {
             self.animator.createNewGroup()
+        } else {
+            self.animator.createOneAnimation(withDuration: duration)
         }
         self.isProducing = true
-        self.isReverse = false
         self.animator.updateCurrentAnimationDuration(duration)
+        self.animator.updateCurrentAnimationIsReverse(false)
+        self.animator.addAnimation(with: params)
+    }
+    
+    public mutating func addNextAnimation(_ duration: Double, _ delay: Double, _ params: YYAnimationParams) {
+        self.animator.createNewGroup()
+        self.animator.updateCurrentAnimationDuration(duration)
+        if (delay > 0) {
+            self.animator.updateCurrentAnimationDelay(delay)
+        }
+        self.animator.updateCurrentAnimationIsReverse(false)
         self.animator.addAnimation(with: params)
     }
     
     public mutating func runAnimation(_ duration: Double, _ params: YYAnimationParams, _ isReverse: Bool) {
-        self.isReverse = isReverse
-        self.animator.updateCurrentAnimationDuration(duration)
+        self.animator.createOneAnimation(withDuration: duration);
+        self.animator.updateCurrentAnimationIsReverse(false);
         self.animator.addAnimation(with: params)
         self.playAnimations()
     }
